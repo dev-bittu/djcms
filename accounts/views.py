@@ -1,10 +1,10 @@
-from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.views import View
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from .models import User
 
 # Create your views here.
 class Login(View):
