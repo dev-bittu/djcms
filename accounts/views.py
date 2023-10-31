@@ -12,7 +12,7 @@ class Login(View):
         if request.user.is_authenticated:
             messages.info(request, "You are already login. Logout first")
             return redirect("index")
-        return render(request, "account/login.html")
+        return render(request, "accounts/login.html")
 
     def post(self, request):
         uname = request.POST.get("username", "")
@@ -24,7 +24,7 @@ class Login(View):
             return redirect("index")
         else:
             messages.warning(request, "Username or password is incorrect")
-        return render(request, "account/login.html")
+        return render(request, "accounts/login.html")
 
 @method_decorator(login_required, name="dispatch")
 class Logout(View):
@@ -37,7 +37,7 @@ class Register(View):
         if request.user.is_authenticated:
             messages.info(request, "You are already logged in")
             return redirect("index")
-        return render(request, "account/register.html")
+        return render(request, "accounts/register.html")
     
     def post(self, request):
         uname = request.POST.get("username", "")

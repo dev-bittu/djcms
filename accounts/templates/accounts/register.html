@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container mt-5 mb-5">
-<form method="post" action="{% url 'register' %}">
+<form method="post" action="{% url 'accounts:register' %}">
   {% csrf_token %}
   <h1 class="text-center">
     Register
