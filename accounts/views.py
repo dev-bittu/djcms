@@ -31,7 +31,7 @@ class Login(View):
 class Logout(View):
     def get(self, request):
         logout(request)
-        return redirect("login")
+        return redirect("accounts:login")
 
 class Register(View):
     def get(self, request):
