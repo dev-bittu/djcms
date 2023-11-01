@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
 EXTERNAL_APPS = [
     'accounts.apps.AccountsConfig',
+    'blogs.apps.BlogsConfig',
 ]
 
 INSTALLED_APPS += EXTERNAL_APPS
