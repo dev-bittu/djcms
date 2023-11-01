@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from .models import User
 
 # Create your views here.
@@ -40,15 +41,33 @@ class Register(View):
         return render(request, "accounts/register.html")
     
     def post(self, request):
+        passwd1 = request.POST.get("password1", "")
+        passwd2 = request.POST.get("password2","")
+        if passwd1 != passwd2:
+            messages.warning(request, "Password do not match")
+            return redirect("accounts:register")
+
+        if not User.password_is_valid(passwd1):
+            messages.warning(request, "Password is not valid. length should be greater tham 6")
+            return redirect("accounts:register")
+        
         uname = request.POST.get("username", "")
-        passwd = request.POST.get("password", "")
-        user = authenticate(username=uname, password=passwd)
-        if user is None:
+        email = request.POST.get("email", "")
+        if not (uname or email):
+            messages.warning(request, "Username or email can't be empty")
+        if not User.email_is_valid(email):
+            messages.warning(request, "Email is not valid")
+            return redirect("accounts:register")
+        
+        user = User.objects.filter(Q(username=uname) | Q(email=email))
+        if not user.exists():
             user = User(username=uname)
-            user.set_password(passwd)
+            user.set_password(passwd1)
             user.save()
             messages.success(request, "User created")
-            return redirect("login")
-        else:
-            messages.info(request, "User already exists.")
-            return redirect("register")
+            login(request, user)
+            messages.success(request, "Logged in")
+            return redirect("index")
+
+        messages.info("User already exists")
+        return redirect("accounts:register")

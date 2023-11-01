@@ -6,7 +6,6 @@ form.onsubmit = (event) => {
   var password1 = document.getElementById("password1").value;
   var password2 = document.getElementById("password2").value;
 
-  alert(password1===password2);;
   if (password1 === password2) {
     form.submit();
   } else {
