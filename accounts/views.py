@@ -31,6 +31,7 @@ class Login(View):
 class Logout(View):
     def get(self, request):
         logout(request)
+        messages.info(request, "Logged out")
         return redirect("accounts:login")
 
 class Register(View):
@@ -44,11 +45,11 @@ class Register(View):
         passwd1 = request.POST.get("password1", "")
         passwd2 = request.POST.get("password2","")
         if passwd1 != passwd2:
-            messages.warning(request, "Password do not match")
+            messages.info(request, "Passwords don't match")
             return redirect("accounts:register")
 
         if not User.password_is_valid(passwd1):
-            messages.warning(request, "Password is not valid. length should be greater tham 6")
+            messages.info(request, "Password is not valid. It's length should be greater than 6")
             return redirect("accounts:register")
         
         uname = request.POST.get("username", "")
