@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+  <h2>
+    {{ blog.title }}
+  </h2>
+  <img src="{{ blog.thumbnail.url }}" class="img-fluid rounded mx-auto d-block" alt="blog's thumbnail">
+  <p>
+    {{ blog.content }}
+  </p>
+</div>
+{% endblock %}

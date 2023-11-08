@@ -8,7 +8,7 @@ class Category(models.Model):
     desc = models.TextField()
 
     def __str__(self):
-        return f"Category({self.category})"
+        return self.category
     
 class Blog(models.Model):
     slug = models.SlugField(unique=True, null=False, blank=False)
@@ -24,7 +24,7 @@ class Blog(models.Model):
     creator = models.ForeignKey(to=User, on_delete=models.SET_NULL, related_name="blogs", null=True)
 
     def __str__(self):
-        return f"Blog({self.title})"
+        return self.title
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -40,4 +40,4 @@ class Comment(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"Comment({self.comment})"
+        return self.comment

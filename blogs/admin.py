@@ -10,7 +10,6 @@ class BlogAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ["category"]
-    fields = ["*"]
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
