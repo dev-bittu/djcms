@@ -11,13 +11,13 @@
         <img src="{{ blog.thumbnail.url }}" class="card-img-top" alt="blog's thumbnail">
         <div class="card-body">
           <h5 class="card-title">{{ blog.title }}</h5>
-          <p class="card-text">{{ blog.desc }}</p>
+          <p class="card-text">{{ blog.desc|truncatechars:100 }}</p>
         </div>
-        <div class="row">
-          <div class="col-6">
+        <div class="row justify-content-center mb-1">
+          <div class="col-5">
             <small class="text-muted">{{ blog.published_on|timesince }} ago</small>
           </div>
-          <div class="col-6">
+          <div class="col-5">
             <a class="btn btn-primary float-end" href="{% url 'blogs:blog' blog.slug %}" role="button">Read More</a>
           </div>
         </div>

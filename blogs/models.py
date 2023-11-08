@@ -20,7 +20,7 @@ class Blog(models.Model):
     visits = models.IntegerField(default=0)
     categories = models.ManyToManyField(Category, related_name="blogs")
     is_active = models.BooleanField(default=True)
-    published_on = models.DateField(auto_now_add=True)
+    published_on = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(to=User, on_delete=models.SET_NULL, related_name="blogs", null=True)
 
     def __str__(self):
