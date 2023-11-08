@@ -17,7 +17,7 @@ class Blog(models.Model):
     content = models.TextField()
     thumbnail = models.ImageField(upload_to="thumbnails/%Y/%m/%d/")
     likes = models.IntegerField(default=0)
-    visits = models.IntegerField(default=0)
+    views = models.IntegerField(default=0)
     categories = models.ManyToManyField(Category, related_name="blogs")
     is_active = models.BooleanField(default=True)
     published_on = models.DateTimeField(auto_now_add=True)
