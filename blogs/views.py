@@ -8,6 +8,6 @@ from .models import Blog
 class BlogView(View):
     def get(self, request, slug):
         blog = get_object_or_404(Blog, slug=slug)
-        blog.views = F("views") + blog.views
+        blog.views = F("views") + 1
         blog.save()
         return render(request, "blogs/blog.html", {"blog": blog})
