@@ -7,6 +7,9 @@
   <h2>
     {{ blog.title }}
   </h2>
+  <p>
+    By {{ blog.creator }} | Updated: {{ blog.published_on|timesince }} ago
+  </p>
   <img src="{{ blog.thumbnail.url }}" class="img-fluid rounded mx-auto d-block" alt="blog's thumbnail">
   <p>
     {{ blog.content }}

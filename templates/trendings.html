@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block title %}Trendings{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for blog in trendings %}
+    <div class="col">
+      <div class="card h-100">
+        <img src="{{ blog.thumbnail.url }}" class="card-img-top" alt="blog's thumbnail">
+        <div class="card-body">
+          <h5 class="card-title">{{ blog.title }}</h5>
+          <p class="card-text">{{ blog.desc }}</p>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <small class="text-muted">{{ blog.published_on|timesince }} ago</small>
+          </div>
+          <div class="col-6">
+            <a class="btn btn-primary float-end" href="{% url 'blogs:blog' blog.slug %}" role="button">Read More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
