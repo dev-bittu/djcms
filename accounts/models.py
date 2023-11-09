@@ -4,10 +4,9 @@ from django.utils.translation import gettext as _
 from .managers import UserManager
 
 class User(AbstractUser):
-    username = None
-    email = models.EmailField(_('email address'), unique=True, blank=False, null=False)
+    is_author = models.BooleanField(default=False)
 
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "username"
     REQUIRED_FIELDS = []
 
     objects = UserManager()

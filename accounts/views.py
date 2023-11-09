@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from .models import User
 
 # Create your views here.
@@ -41,20 +42,21 @@ class Register(View):
         return render(request, "accounts/register.html")
     
     def post(self, request):
-        passwd1 = request.POST.get("password1", "")
-        passwd2 = request.POST.get("password2","")
+        data = request.POST
+        passwd1 = data.get("password1", "")
+        passwd2 = data.get("password2","")
         if passwd1 != passwd2:
             messages.info(request, "Passwords don't match")
             return redirect("accounts:register")
         
-        email = request.POST.get("email", "")
-        if not email:
+        email, username = data.get("email", ""), data.get("username", "")
+        if not (email and username):
             messages.info(request, "Email required")
             return redirect("accounts:register")
         
-        user = User.objects.filter(email=email)
+        user = User.objects.filter(Q(email=email) | Q(username=username))
         if not user.exists():
-            user = User(email=email)
+            user = User(email=email, username=username)
             user.set_password(passwd1)
             user.save()
             messages.success(request, "User created")
