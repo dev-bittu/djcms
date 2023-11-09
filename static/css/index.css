@@ -1,0 +1,12 @@
+body{
+  min-height: 200px;
+  padding-top: 50px;
+}
+
+footer {
+  background-color: #0a4275;
+}
+
+.copyright-text {
+  background-color: rgba(0, 0, 0, 0.2);
+}
