@@ -5,12 +5,18 @@ from blogs.models import Blog
 class Index(View):
     def get(self, request):
         latest_blogs = Blog.objects.all()[:6]
-        return render(request, "index.html", {"latest": latest_blogs})
+        popular = Blog.objects.order_by("-views")[:3]
+        return render(request, "index.html", {"latest": latest_blogs, "popular": popular})
 
 class Trendings(View):
     def get(self, request):
         trendings = Blog.objects.order_by("-views")[:10]
         return render(request, "trendings.html", {"trendings": trendings})
+
+class Popular(View):
+    def get(self, request):
+        popular = Blog.objects.order_by("-views")[:10]
+        return render(request, "popular.html", {"popular": popular})
 
 class Latest(View):
     def get(self, request):
