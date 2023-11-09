@@ -10,4 +10,5 @@ class BlogView(View):
         blog = get_object_or_404(Blog, slug=slug)
         blog.views = F("views") + 1
         blog.save()
+        blog.refresh_from_db()
         return render(request, "blogs/blog.html", {"blog": blog})

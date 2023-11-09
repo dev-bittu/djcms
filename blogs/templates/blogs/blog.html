@@ -10,7 +10,7 @@
     </h2>
   </div>
   <div class="row">
-    <p>By {{ blog.creator }} | Updated: {{ blog.published_on|timesince }} ago</p>
+    <p>Author: {{ blog.creator }} | Views: {{ blog.views }} | Updated: {{ blog.published_on|timesince }} ago</p>
   </div>
   <div class="row">
     {% for category in blog.categories.all %}
