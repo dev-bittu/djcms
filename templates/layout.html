@@ -56,29 +56,20 @@
   {% block body %}{% endblock %}
 
   <section>
-    <!-- Footer -->
     <footer class="text-center text-white">
-      <!-- Grid container -->
       <div class="container p-4 pb-0">
-        <!-- Section: CTA -->
         <section class="">
           <p class="d-flex justify-content-center align-items-center">
             <span class="me-3">Register for free</span>
-            <a class="btn btn-outline-light btn-rounded" href="#" role="button">Register</a>
+            <a class="btn btn-outline-light btn-rounded" href="{% url 'accounts:register' %}" role="button">Register</a>
           </p>
         </section>
-        <!-- Section: CTA -->
       </div>
-      <!-- Grid container -->
-  
-      <!-- Copyright -->
       <div class="text-center p-3 copyright-text">
         © 2023 Copyright:
         <a class="text-white" href="/">djcms</a>
       </div>
-      <!-- Copyright -->
     </footer>
-    <!-- Footer -->
   </section>
   <script src="{% static 'js/bootstrap.js' %}"></script>
 </body>
