@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import User
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Category(models.Model):
@@ -14,7 +15,7 @@ class Blog(models.Model):
     slug = models.SlugField(unique=True, null=False, blank=False)
     title = models.CharField(max_length=100)
     desc = models.TextField()
-    content = models.TextField()
+    content = RichTextField()
     thumbnail = models.ImageField(upload_to="thumbnails/%Y/%m/%d/")
     likes = models.IntegerField(default=0)
     views = models.IntegerField(default=0)
