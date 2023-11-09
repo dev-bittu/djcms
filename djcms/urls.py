@@ -27,4 +27,7 @@ urlpatterns = [
     path("", views.Index.as_view(), name="index"),
     path("trendings/", views.Trendings.as_view(), name="trendings"),
     path("latest/", views.Latest.as_view(), name="latest"),
+    path("search/<str:query>/", views.Search.as_view(), name="search"),
+    path("category/", views.Category.as_view(), name="category"),
+    path("category/<str:cat>/", views.GetCategory.as_view(), name="get_category"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

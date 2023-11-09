@@ -4,15 +4,26 @@
 
 {% block body %}
 <div class="container mt-5 mb-5">
-  <h2>
-    {{ blog.title }}
-  </h2>
-  <p>
-    By {{ blog.creator }} | Updated: {{ blog.published_on|timesince }} ago
-  </p>
-  <img src="{{ blog.thumbnail.url }}" class="img-fluid rounded mx-auto d-block" alt="blog's thumbnail">
-  <p>
-    {{ blog.content }}
-  </p>
+  <div class="row">
+    <h2>
+      {{ blog.title }}
+    </h2>
+  </div>
+  <div class="row">
+    <p>By {{ blog.creator }} | Updated: {{ blog.published_on|timesince }} ago</p>
+  </div>
+  <div class="row">
+    {% for category in blog.categories.all %}
+    <div class="col">
+      <span class="badge text-bg-primary" style="display:inline;">{{ category.category }}</span>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="row">
+    <img src="{{ blog.thumbnail.url }}" class="img-fluid rounded mx-auto d-block" alt="blog's thumbnail">
+    <p>
+      {{ blog.content }}
+    </p>
+  </div>
 </div>
 {% endblock %}
