@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200&display=swap');
+
 body{
   min-height: 200px;
   padding-top: 50px;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 footer {

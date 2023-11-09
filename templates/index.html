@@ -9,7 +9,7 @@
       <h2>Recent Posts</h2>
     </div>
     <div class="col-6">
-      <a class="btn btn-primary float-end" href="{% url 'latest' %}" role="button">View All</a>
+      <a class="btn btn-primary float-end" href="{% url 'latest' %}" role="button">View All -></a>
     </div>
   </div>
   <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -29,7 +29,7 @@
             <p class="text-muted float-end">{{ blog.published_on|timesince }} ago</p>
           </div>
         </div>
-        <a class="btn btn-outline-light w-100" href="{% url 'blogs:blog' blog.slug %}" role="button">Read More >></a>
+        <a class="btn btn-outline-light w-100" href="{% url 'blogs:blog' blog.slug %}" role="button">Read More -></a>
       </div>
     </div>
     {% endfor %}
@@ -42,7 +42,7 @@
       <h2>Popular Posts</h2>
     </div>
     <div class="col-6">
-      <a class="btn btn-primary float-end" href="{% url 'popular' %}" role="button">View All</a>
+      <a class="btn btn-primary float-end" href="{% url 'popular' %}" role="button">View All -></a>
     </div>
   </div>
   <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -62,7 +62,7 @@
             <p class="text-muted float-end">{{ blog.published_on|timesince }} ago</p>
           </div>
         </div>
-        <a class="btn btn-outline-light w-100" href="{% url 'blogs:blog' blog.slug %}" role="button">Read More >></a>
+        <a class="btn btn-outline-light w-100" href="{% url 'blogs:blog' blog.slug %}" role="button">Read More -></a>
       </div>
     </div>
     {% endfor %}
