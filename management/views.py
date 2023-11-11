@@ -9,5 +9,6 @@ from django.contrib.auth.decorators import login_required
 class AddBlog(View):
     def get(self, request):
         if request.user.is_author:
-            return render(request, "management/add_blpg.html")
+            return render(request, "management/add_blog.html")
+        messages.info(request, "You are not an author")
         return redirect("index")
