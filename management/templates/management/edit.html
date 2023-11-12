@@ -34,6 +34,7 @@
         <option value="{{ category.id }}" {% if category in blog.categories.all %}selected{% endif %}>{{ category.category }}</option>
         {% endfor %}
       </select>
+      <small>Not have category? <a class="text-decoration-none" href="{% url 'manage:add_category' %}">Create</a></small>
     </div>
     <br>
     <div class="row">

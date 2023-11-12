@@ -61,6 +61,29 @@ class AddBlog(View):
 
         return redirect("manage:add_blog")
 
+
+class AddCategory(View):
+    def get(self, request):
+        return render(request, "management/add_category.html")
+
+    def post(self, request):
+        data = request.POST
+        category = data.get("category")
+        desc = data.get("desc")
+
+        c = Category.objects.filter(category=category).first()
+        if c is not None:
+            messages.warn(request, "Category already exists")
+        else:
+            c = Category(
+                category=category,
+                desc=desc
+            )
+            c.save()
+            messages.success(request, "Category created")
+        return redirect("manage:add_category")
+        
+
 @method_decorator(login_required, name="dispatch")
 class DraftBlogs(View):
     def get(self, request):
