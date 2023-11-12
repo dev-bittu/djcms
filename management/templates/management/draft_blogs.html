@@ -7,18 +7,20 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <th scope="col">#</th>
         <th scope="col">ID</th>
         <th scope="col">Title</th>
         <th scope="col">Desc</th>
         <th scope="col">Categories</th>
-        <th scope="col">Create On</th>
+        <th scope="col">Created On</th>
       </tr>
     </thead>
     <tbody class="table-group-divider">
       {% for blog in draft %}
       <tr>
-        <th scope="row">{{ blog.id }}</th>
-        <td>{{ blog.title|truncatechars:40 }}</td>
+        <th scope="row">{{ forloop.counter }}</th>
+        <th>{{ blog.id }}</th>
+        <td><a href="{% url 'manage:edit_blog' blog.id %}" class="text-decoration-none">{{ blog.title|truncatechars:40 }}</a></td>
         <td>{{ blog.desc|truncatechars:60 }}</td>
         <td>[{{ blog.categories.all|join:", " }}]</td> 
         <td>{{ blog.published_on }}</td>
