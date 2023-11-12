@@ -1,14 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views import View
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
 from blogs.models import Category, Blog
 from django.utils import timezone
 from .forms import CKEditorForm
 
 # Create your views here.
-@method_decorator(login_required, name="dispatch")
 class AddBlog(View):
     def get(self, request):
         if request.user.is_author:
@@ -73,7 +70,7 @@ class AddCategory(View):
 
         c = Category.objects.filter(category=category).first()
         if c is not None:
-            messages.warn(request, "Category already exists")
+            messages.warning(request, "Category already exists")
         else:
             c = Category(
                 category=category,
@@ -84,7 +81,6 @@ class AddCategory(View):
         return redirect("manage:add_category")
         
 
-@method_decorator(login_required, name="dispatch")
 class DraftBlogs(View):
     def get(self, request):
         if not request.user.is_author:
@@ -93,7 +89,6 @@ class DraftBlogs(View):
         draft = Blog.objects.filter(is_active=True, is_published=False, creator=request.user)
         return render(request, "management/draft_blogs.html", {"draft": draft})
 
-@method_decorator(login_required, name="dispatch")
 class UpdateBlog(View):
     def get(self, request):
         if not request.user.is_author:
@@ -102,7 +97,6 @@ class UpdateBlog(View):
         blogs = Blog.objects.filter(is_active=True)
         return render(request, "management/update.html", {"blogs": blogs})
 
-@method_decorator(login_required, name="dispatch")
 class EditBlog(View):
     def get(self, request, id):
         if not request.user.is_author:
@@ -165,7 +159,7 @@ class DeleteBlog(View):
     def get(self, request, id):
         blog = Blog.objects.filter(id=id, creator=request.user).first()
         if blog is None:
-            messages.warn(request, "Blog doesn't exists")
+            messages.warning(request, "Blog doesn't exists")
         else:
             blog.is_active = False
             blog.save()

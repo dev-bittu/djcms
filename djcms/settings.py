@@ -59,6 +59,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+EXTERNAL_MIDDLEWARE = [
+    'management.middleware.ManagementAuthMiddleware',
+]
+
+MIDDLEWARE += EXTERNAL_MIDDLEWARE
+
 ROOT_URLCONF = 'djcms.urls'
 
 TEMPLATES = [
