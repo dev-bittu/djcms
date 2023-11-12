@@ -4,6 +4,7 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from blogs.models import Category, Blog
+from django.utils import timezone
 from .forms import CKEditorForm
 
 # Create your views here.
@@ -53,7 +54,7 @@ class AddBlog(View):
                 c = Category.objects.get(id=int(id))
                 blog.categories.add(c)
             except Exception as e:
-                print(e)
+                pass
 
         blog.save()
         messages.success(request, "Blog created")
@@ -66,7 +67,7 @@ class DraftBlogs(View):
         if not request.user.is_author:
             messages.info(request, "You are not an author")
             return redirect("index")
-        draft = Blog.objects.filter(is_active=True, is_published=False)
+        draft = Blog.objects.filter(is_active=True, is_published=False, creator=request.user)
         return render(request, "management/draft_blogs.html", {"draft": draft})
 
 @method_decorator(login_required, name="dispatch")
@@ -84,10 +85,51 @@ class EditBlog(View):
         if not request.user.is_author:
             messages.info(request, "You are not an author")
             return redirect("index")
-        blog = Blog.objects.filter(id=id).first()
+        blog = Blog.objects.filter(id=id, creator=request.user).first()
         if blog is None:
             messages.info(request, "Blog not exists")
             return redirect("manage:update_blog")
         categories = Category.objects.all()
         form = CKEditorForm({"content": blog.content})
         return render(request, "management/edit.html", {"blog": blog, "categories": categories, "form": form})
+    
+    def post(self, request, id = None):
+        data = request.POST
+        id = data.get("id")
+        blog = Blog.objects.filter(is_active=True, creator=request.user, id=id).first()
+        if blog is None:
+            messages.info(request, "Blog doesn't exists")
+            return redirect("manage:update_blog")
+
+        title = data.get("title")
+        desc = data.get("desc")
+        content = data.get("content")
+        status = data.get("status")
+        thumbnail = request.FILES.get("thumbnail")
+        categories = data.getlist("categories")
+
+        blog.title = title
+        blog.desc = desc
+        blog.content = content
+        if thumbnail:
+            blog.thumbnail = thumbnail
+
+        try:
+            status = int(status)
+            if not blog.is_published and status:
+                blog.published_on = timezone.now()
+            blog.is_published = bool(status)
+        except:
+            messages.info(request, "Error while updating status")
+        
+        for id in categories:
+            try:
+                c = Category.objects.get(id=int(id))
+                blog.categories.add(c)
+            except Exception as e:
+                pass
+
+        blog.save()
+        messages.success(request, "Changes saved")
+
+        return redirect("manage:update_blog")

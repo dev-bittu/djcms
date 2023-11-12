@@ -12,6 +12,7 @@
         <th scope="col">Desc</th>
         <th scope="col">Categories</th>
         <th scope="col">Created On</th>
+        <th scope="col">Is Published</th>
       </tr>
     </thead>
     <tbody class="table-group-divider">
@@ -22,6 +23,7 @@
         <td>{{ blog.desc|truncatechars:60 }}</td>
         <td>[{{ blog.categories.all|join:", " }}]</td> 
         <td>{{ blog.published_on }}</td>
+        <td>{% if blog.is_published %}Yes{% else %}No{% endif %}</td>
       </tr>
       {% endfor %}
     </tbody>

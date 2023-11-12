@@ -4,11 +4,12 @@
 
 {% block body %}
 <div class="container mt-5 mb-5">
-  <form method="post" action="{% url 'manage:add_blog' %}" enctype="multipart/form-data">
+  <form method="post" action="{% url 'manage:edit_blog' blog.id %}" enctype="multipart/form-data">
     {% csrf_token %}
     <h1 class="text-center mb-3">
       Edit Blog
     </h1>
+      <input type="hidden" name="id" value="{{ blog.id }}">
     <div class="mb-3">
       <label for="title" class="form-label">Title:</label>
       <input type="text" class="form-control" id="title" placeholder="Title" name="title" value="{{ blog.title }}" required autofocus>
@@ -22,7 +23,7 @@
     {{ form.as_p }}
     <div class="mb-3">
       <label for="thumbnail" class="form-label">Thumbnail:</label>
-      <input class="form-control" type="file" id="thumbnail" name="thumbnail" accept="image/*" required>
+      <input class="form-control" type="file" id="thumbnail" name="thumbnail" accept="image/*">
       <small>Current: <a class="text-decoration-none" href="{{ blog.thumbnail.url }}">{{ blog.thumbnail.url }}</a></small>
     </div>
     <div class="mb-3">
