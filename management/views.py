@@ -27,9 +27,16 @@ class AddBlog(View):
         content = data.get("content")
         thumbnail = request.FILES.get("thumbnail")
         categories = data.getlist("categories") 
+        status = data.get("status")
 
-        if not (title and desc and content and thumbnail and categories):
-            messages.info(request, "title, desc, content, thumbnail, or categories can't be empty")
+        if not (title and desc and content and thumbnail and categories and status):
+            messages.info(request, "title, desc, content, thumbnail, categories, or status can't be empty")
+            return redirect("manage:add_blog")
+
+        try:
+            status = bool(int(status))
+        except:
+            messages.info(request, "Something wrong with status")
             return redirect("manage:add_blog")
 
         blog = Blog(
@@ -37,7 +44,8 @@ class AddBlog(View):
             desc = desc,
             content = content,
             creator = request.user,
-            thumbnail = thumbnail
+            thumbnail = thumbnail,
+            is_active = status
         )
 
         for id in categories:
