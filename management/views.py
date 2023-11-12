@@ -45,17 +45,22 @@ class AddBlog(View):
             content = content,
             creator = request.user,
             thumbnail = thumbnail,
-            is_active = status
+            is_published = status
         )
-
+        blog.save()
         for id in categories:
             try:
                 c = Category.objects.get(id=int(id))
                 blog.categories.add(c)
-            except:
-                continue
+            except Exception as e:
+                print(e)
 
         blog.save()
         messages.success(request, "Blog created")
 
         return redirect("manage:add_blog")
+
+class DraftBlogs(View):
+    def get(self, request):
+        draft = Blog.objects.filter(is_active=True, is_published=False)
+        return render(request, "management/draft_blogs.html", {"draft": draft})

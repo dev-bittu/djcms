@@ -6,23 +6,23 @@
 <div class="container mt-5 mb-5">
   <form method="post" action="{% url 'manage:add_blog' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    <h1 class="text-center">
+    <h1 class="text-center mb-3">
       Add Blog
     </h1>
     <div class="mb-3">
-      <label for="floatingInput" class="form-label">Title:</label>
-      <input type="text" class="form-control" id="floatingInput" placeholder="Title" name="title" required autofocus>
+      <label for="title" class="form-label">Title:</label>
+      <input type="text" class="form-control" id="title" placeholder="Title" name="title" required autofocus>
     </div>
     <div class="mb-3">
-      <label for="floatingInput" class="form-label">Description:</label>
-      <textarea class="form-control" placeholder="Type description here" id="floatingTextarea2" style="height: 100px" name="desc"></textarea>
+      <label for="desc" class="form-label">Description:</label>
+      <textarea class="form-control" placeholder="Type description here" id="desc" style="height: 100px" name="desc"></textarea>
     </div>
     <br>
     {{ form.media }}
     {{ form.as_p }}
     <div class="mb-3">
-      <label for="formFile" class="form-label">Thumbnail:</label>
-      <input class="form-control" type="file" id="formFile" name="thumbnail" required>
+      <label for="thumbnail" class="form-label">Thumbnail:</label>
+      <input class="form-control" type="file" id="thumbnail" name="thumbnail" accept="image/*" required>
     </div>
     <div class="mb-3">
       <label for="categories" class="form-label">Categories:</label>

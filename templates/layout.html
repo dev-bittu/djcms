@@ -32,7 +32,8 @@
             Manage Blogs
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'manage:add_blog' %}">Add</a></li>
+            <li><a class="dropdown-item" href="{% url 'manage:add_blog' %}">Add Blog</a></li>
+            <li><a class="dropdown-item" href="{% url 'manage:draft_blog' %}">Draft Blogs</a></li>
           </ul>
         </li>
         {% endif %}
