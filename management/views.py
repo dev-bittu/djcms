@@ -60,7 +60,34 @@ class AddBlog(View):
 
         return redirect("manage:add_blog")
 
+@method_decorator(login_required, name="dispatch")
 class DraftBlogs(View):
     def get(self, request):
+        if not request.user.is_author:
+            messages.info(request, "You are not an author")
+            return redirect("index")
         draft = Blog.objects.filter(is_active=True, is_published=False)
         return render(request, "management/draft_blogs.html", {"draft": draft})
+
+@method_decorator(login_required, name="dispatch")
+class UpdateBlog(View):
+    def get(self, request):
+        if not request.user.is_author:
+            messages.info(request, "You are not an author")
+            return redirect("index")
+        blogs = Blog.objects.filter(is_active=True)
+        return render(request, "management/update.html", {"blogs": blogs})
+
+@method_decorator(login_required, name="dispatch")
+class EditBlog(View):
+    def get(self, request, id):
+        if not request.user.is_author:
+            messages.info(request, "You are not an author")
+            return redirect("index")
+        blog = Blog.objects.filter(id=id).first()
+        if blog is None:
+            messages.info(request, "Blog not exists")
+            return redirect("manage:update_blog")
+        categories = Category.objects.all()
+        form = CKEditorForm({"content": blog.content})
+        return render(request, "management/edit.html", {"blog": blog, "categories": categories, "form": form})
