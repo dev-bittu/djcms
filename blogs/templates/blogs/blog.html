@@ -12,7 +12,7 @@
   <div class="row">
     <p>Author: {{ blog.creator }} | Views: {{ blog.views }} | Updated: {{ blog.published_on|timesince }} ago</p>
   </div>
-  <div class="row">
+  <div class="row mb-3">
     {% for category in blog.categories.all %}
     <div class="col">
       <span class="badge text-bg-primary" style="display:inline;">{{ category.category }}</span>
