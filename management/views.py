@@ -156,3 +156,19 @@ class EditBlog(View):
         messages.success(request, "Changes saved")
 
         return redirect("manage:update_blog")
+
+class DeleteBlogs(View):
+    def get(self, request):
+        return render(request, "management/delete_blogs.html", {"blogs": Blog.objects.filter(is_active=True)})
+
+class DeleteBlog(View):
+    def get(self, request, id):
+        blog = Blog.objects.filter(id=id, creator=request.user).first()
+        if blog is None:
+            messages.warn(request, "Blog doesn't exists")
+        else:
+            blog.is_active = False
+            blog.save()
+            messages.info(request, "Blog deleted")
+
+        return redirect("manage:delete_blog")
