@@ -22,7 +22,7 @@
       <td>{{ blog.published_on }}</td>
       <td>{% if blog.is_published %}Yes{% else %}No{% endif %}</td>
       <td>
-        <a class="btn btn-danger" href="{% url 'manage:edit_blog' blog.id %}" role="button">
+        <a class="btn btn-warning" href="{% url 'manage:edit_blog' blog.id %}" role="button">
           Edit
         </a>
         <a class="btn btn-danger" href="{% url 'manage:delete' blog.id %}" role="button">
