@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import View
+from django.db.models import Q
 from blogs.models import Blog
 
 class Index(View):
@@ -24,8 +25,12 @@ class Latest(View):
         return render(request, "latest.html", {"latest": latest})
 
 class Search(View):
-    def get(self, request, query):
-        return render(request, "index.html")
+    def get(self, request):
+        query = request.GET.get("query")
+        blogs = Blog.objects.filter(
+            (Q(title__icontains=query) | Q(desc__icontains=query)), is_active=True
+            )[:12]
+        return render(request, "search.html", {"blogs": blogs, "query": query})
 
 class Category(View):
     def get(self, request):
