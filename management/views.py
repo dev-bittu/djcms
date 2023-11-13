@@ -6,6 +6,11 @@ from django.utils import timezone
 from .forms import CKEditorForm
 
 # Create your views here.
+class ManageBlog(View):
+    def get(self, request):
+        blogs = Blog.objects.filter(is_active=True)
+        return render(request, "management/manage_blog.html", {"blogs": blogs})
+
 class AddBlog(View):
     def get(self, request):
         if request.user.is_author:

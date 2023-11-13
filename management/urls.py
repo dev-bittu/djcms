@@ -4,6 +4,7 @@ from . import views
 app_name = "manage"
 
 urlpatterns = [
+    path("blog/", views.ManageBlog.as_view(), name="blog"),
     path("add/blog/", views.AddBlog.as_view(), name="add_blog"),
     path("add/category/", views.AddCategory.as_view(), name="add_category"),
     path("draft/", views.DraftBlogs.as_view(), name="draft_blog"),
