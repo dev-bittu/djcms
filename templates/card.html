@@ -1,6 +1,8 @@
 <div class="col">
   <div class="card h-100">
-    <img src="{{ blog.thumbnail.url }}" class="card-img-top" alt="blog's thumbnail">
+    <div class="ratio ratio-16x9">
+      <img src="{{ blog.thumbnail.url }}" class="card-img-top" alt="blog's thumbnail">
+    </div>
     <div class="card-body">
       <h5 class="card-title">{{ blog.title }}</h5>
       <p class="card-text">{{ blog.desc|truncatechars:100 }}</p>
