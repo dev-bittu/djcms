@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block title %}Edit Category{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+  <div class="row">
+    <h1 class="text-center mb-3">
+      Edit Category
+    </h1>
+  </div>
+  <div class="row">
+    <form method="post" action="{% url 'manage:edit_category' category.id %}">
+      {% csrf_token %}
+      <div class="row mb-3">
+        <label for="category" class="form-label">Category:</label>
+        <input type="text" class="form-control" id="category" placeholder="Category" name="category" value="{{ category.category }}" required autofocus>
+      </div>
+      <div class="row mb-3">
+        <label for="desc" class="form-label">Description:</label>
+        <textarea class="form-control" placeholder="Type description here" id="desc" style="height: 100px" name="desc">{{ category.desc }}</textarea>
+      </div>
+      <div class="row float-end">
+        <button type="submit" class="btn btn-outline-success">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

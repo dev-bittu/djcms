@@ -14,9 +14,11 @@
   </div>
   <div class="row mb-3">
     {% for category in blog.categories.all %}
+    {% if category.is_active %}
     <div class="col">
       <span class="badge text-bg-primary" style="display:inline;">{{ category.category }}</span>
     </div>
+    {% endif %}
     {% endfor %}
   </div>
   <div class="row">

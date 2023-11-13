@@ -5,11 +5,14 @@ app_name = "manage"
 
 urlpatterns = [
     path("blog/", views.ManageBlog.as_view(), name="blog"),
-    path("add/blog/", views.AddBlog.as_view(), name="add_blog"),
-    path("add/category/", views.AddCategory.as_view(), name="add_category"),
-    path("draft/", views.DraftBlogs.as_view(), name="draft_blog"),
-    path("update/", views.UpdateBlog.as_view(), name="update_blog"),
-    path("delete/", views.DeleteBlogs.as_view(), name="delete_blog"),
-    path("delete/<int:id>/", views.DeleteBlog.as_view(), name="delete"),
-    path("edit/<int:id>/", views.EditBlog.as_view(), name="edit_blog"),
+    path("category/", views.ManageCategory.as_view(), name="category"),
+
+    path("create/blog/", views.CreateBlog.as_view(), name="create_blog"),
+    path("create/category/", views.CreateCategory.as_view(), name="create_category"),
+
+    path("delete/blog/<int:id>/", views.DeleteBlog.as_view(), name="delete"),
+    path("delete/category/<int:id>", views.DeleteCategory.as_view(), name="delete_category"),
+
+    path("edit/blog/<int:id>/", views.EditBlog.as_view(), name="edit_blog"),
+    path("edit/category/<int:id>", views.EditCategory.as_view(), name="edit_category"),
 ]

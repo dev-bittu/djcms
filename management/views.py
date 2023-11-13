@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
 from blogs.models import Category, Blog
@@ -9,21 +9,21 @@ from .forms import CKEditorForm
 class ManageBlog(View):
     def get(self, request):
         blogs = Blog.objects.filter(is_active=True)
-        return render(request, "management/manage_blog.html", {"blogs": blogs})
+        return render(request, "management/blog.html", {"blogs": blogs})
 
-class AddBlog(View):
+class ManageCategory(View):
     def get(self, request):
-        if request.user.is_author:
-            form = CKEditorForm()
-            categories = Category.objects.all()
-            return render(request, "management/add_blog.html", {"form": form, "categories": categories})
-        messages.info(request, "You are not an author")
-        return redirect("index")
+        categories = Category.objects.filter(is_active=True)
+        return render(request, "management/category.html", {"categories": categories})
+
+
+class CreateBlog(View):
+    def get(self, request):
+        form = CKEditorForm()
+        categories = Category.objects.filter(is_active=True)
+        return render(request, "management/create_blog.html", {"form": form, "categories": categories})
 
     def post(self, request):
-        if not request.user.is_author:
-            messages.info(request, "You are not an author")
-            return redirect("index")
         data = request.POST
         title = data.get("title")
         desc = data.get("desc")
@@ -34,13 +34,13 @@ class AddBlog(View):
 
         if not (title and desc and content and thumbnail and categories and status):
             messages.info(request, "title, desc, content, thumbnail, categories, or status can't be empty")
-            return redirect("manage:add_blog")
+            return redirect("manage:create_blog")
 
         try:
             status = bool(int(status))
         except:
             messages.info(request, "Something wrong with status")
-            return redirect("manage:add_blog")
+            return redirect("manage:create_blog")
 
         blog = Blog(
             title = title,
@@ -61,12 +61,12 @@ class AddBlog(View):
         blog.save()
         messages.success(request, "Blog created")
 
-        return redirect("manage:add_blog")
+        return redirect("manage:create_blog")
 
 
-class AddCategory(View):
+class CreateCategory(View):
     def get(self, request):
-        return render(request, "management/add_category.html")
+        return render(request, "management/create_category.html")
 
     def post(self, request):
         data = request.POST
@@ -83,37 +83,17 @@ class AddCategory(View):
             )
             c.save()
             messages.success(request, "Category created")
-        return redirect("manage:add_category")
+        return redirect("manage:create_category")
         
-
-class DraftBlogs(View):
-    def get(self, request):
-        if not request.user.is_author:
-            messages.info(request, "You are not an author")
-            return redirect("index")
-        draft = Blog.objects.filter(is_active=True, is_published=False, creator=request.user)
-        return render(request, "management/draft_blogs.html", {"draft": draft})
-
-class UpdateBlog(View):
-    def get(self, request):
-        if not request.user.is_author:
-            messages.info(request, "You are not an author")
-            return redirect("index")
-        blogs = Blog.objects.filter(is_active=True)
-        return render(request, "management/update.html", {"blogs": blogs})
-
 class EditBlog(View):
     def get(self, request, id):
-        if not request.user.is_author:
-            messages.info(request, "You are not an author")
-            return redirect("index")
         blog = Blog.objects.filter(id=id, creator=request.user).first()
         if blog is None:
             messages.info(request, "Blog not exists")
-            return redirect("manage:update_blog")
+            return redirect("manage:blog")
         categories = Category.objects.all()
         form = CKEditorForm({"content": blog.content})
-        return render(request, "management/edit.html", {"blog": blog, "categories": categories, "form": form})
+        return render(request, "management/edit_blog.html", {"blog": blog, "categories": categories, "form": form})
     
     def post(self, request, id = None):
         data = request.POST
@@ -121,7 +101,7 @@ class EditBlog(View):
         blog = Blog.objects.filter(is_active=True, creator=request.user, id=id).first()
         if blog is None:
             messages.info(request, "Blog doesn't exists")
-            return redirect("manage:update_blog")
+            return redirect("manage:blog")
 
         title = data.get("title")
         desc = data.get("desc")
@@ -154,11 +134,7 @@ class EditBlog(View):
         blog.save()
         messages.success(request, "Changes saved")
 
-        return redirect("manage:update_blog")
-
-class DeleteBlogs(View):
-    def get(self, request):
-        return render(request, "management/delete_blogs.html", {"blogs": Blog.objects.filter(is_active=True)})
+        return redirect("manage:blog")
 
 class DeleteBlog(View):
     def get(self, request, id):
@@ -171,3 +147,31 @@ class DeleteBlog(View):
             messages.info(request, "Blog deleted")
 
         return redirect("manage:delete_blog")
+
+class EditCategory(View):
+    def get(self, request, id):
+        category = get_object_or_404(Category, id=id, is_active=True)
+        return render(request, "management/edit_category.html", {"category": category})
+
+    def post(self, request, id):
+        c = Category.objects.filter(id=id, is_active=True).first()
+        data = request.POST
+        category, desc = data.get("category"), data.get("desc")
+        print(data)
+        if not ((category and desc) or c):
+            messages.warning(request, "Category or Desc can't be empty. OR Category doesn't exists")
+            return redirect("manage:category")
+        c.category = category
+        c.desc = desc
+        c.save()
+        messages.success(request, "Changes saved")
+        return redirect("manage:category")
+        
+
+class DeleteCategory(View):
+    def get(self, request, id):
+        category = get_object_or_404(Category, id=id)
+        category.is_active = False
+        category.save()
+        messages.info(request, "Category removed")
+        return redirect("manage:category")

@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container mt-5 mb-5">
-  <form method="post" action="{% url 'manage:add_blog' %}" enctype="multipart/form-data">
+  <form method="post" action="{% url 'manage:create_blog' %}" enctype="multipart/form-data">
     {% csrf_token %}
     <h1 class="text-center mb-3">
       Add Blog
@@ -32,7 +32,7 @@
         <option value="{{ category.id }}">{{ category.category }}</option>
         {% endfor %}
       </select>
-      <small>Not have category? <a class="text-decoration-none" href="{% url 'manage:add_category' %}">Create</a></small>
+      <small>Not have category? <a class="text-decoration-none" href="{% url 'manage:create_category' %}">Create</a></small>
     </div>
     <br>
     <div class="row">

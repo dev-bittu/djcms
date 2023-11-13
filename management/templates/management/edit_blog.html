@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block title %}Add Blog{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+  <div class="row mb-3">
+    <h1 class="text-center">
+      Edit Blog
+    </h1>
+  </div>
+  <div class="row">
+    <form method="post" action="{% url 'manage:edit_blog' blog.id %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="id" value="{{ blog.id }}">
+      <div class="row mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <input type="text" class="form-control" id="title" placeholder="Title" name="title" value="{{ blog.title }}" required autofocus>
+      </div>
+      <div class="row mb-3">
+        <label for="desc" class="form-label">Description:</label>
+        <textarea class="form-control" placeholder="Type description here" id="desc" style="height: 100px" name="desc">{{ blog.desc }}</textarea>
+      </div>
+      <br>
+      {{ form.media }}
+      {{ form.as_p }}
+      <div class="row mb-3">
+        <label for="thumbnail" class="form-label">Thumbnail:</label>
+        <input class="form-control" type="file" id="thumbnail" name="thumbnail" accept="image/*">
+        <small>Current: <a class="text-decoration-none" href="{{ blog.thumbnail.url }}">{{ blog.thumbnail.url }}</a></small>
+      </div>
+      <div class="row mb-3">
+        <label for="categories" class="form-label">Categories:</label>
+        <select id="categories" class="form-select" multiple aria-label="multiple select example" name="categories" required>
+          <option disabled value=''>Select categories</option>
+          {% for category in categories %}
+          <option value="{{ category.id }}" {% if category in blog.categories.all %}selected{% endif %}>{{ category.category }}</option>
+          {% endfor %}
+        </select>
+        <small>Not have category? <a class="text-decoration-none" href="{% url 'manage:create_category' %}">Create</a></small>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-4">
+          <p>Status:</p>
+        </div>
+        <div class="form-check col-4">
+          <input class="form-check-input" type="radio" name="status" value="0" id="draft" {% if not blog.is_published %}checked="checked"{% endif %}>
+          <label class="form-check-label" for="draft">Draft</label>
+        </div>
+        <div class="form-check col-4">
+          <input class="form-check-input" type="radio" name="status" value="1" id="publish" {% if blog.is_published %}checked="checked"{% endif %}>
+          <label class="form-check-label" for="publish">Publish</label>
+        </div>
+      </div>
+      <div class="row float-end">
+        <button type="submit" class="btn btn-outline-success">Publish</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

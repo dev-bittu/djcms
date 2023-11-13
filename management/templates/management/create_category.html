@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container mt-5 mb-5">
-  <form method="post" action="{% url 'manage:add_category' %}">
+  <form method="post" action="{% url 'manage:create_category' %}">
     {% csrf_token %}
     <h1 class="text-center mb-3">
       Add Category
