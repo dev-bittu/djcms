@@ -10,7 +10,7 @@ urlpatterns = [
     path("create/blog/", views.CreateBlog.as_view(), name="create_blog"),
     path("create/category/", views.CreateCategory.as_view(), name="create_category"),
 
-    path("delete/blog/<int:id>/", views.DeleteBlog.as_view(), name="delete"),
+    path("delete/blog/<int:id>/", views.DeleteBlog.as_view(), name="delete_blog"),
     path("delete/category/<int:id>", views.DeleteCategory.as_view(), name="delete_category"),
 
     path("edit/blog/<int:id>/", views.EditBlog.as_view(), name="edit_blog"),

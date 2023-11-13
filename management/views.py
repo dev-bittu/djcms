@@ -146,7 +146,7 @@ class DeleteBlog(View):
             blog.save()
             messages.info(request, "Blog deleted")
 
-        return redirect("manage:delete_blog")
+        return redirect("manage:blog")
 
 class EditCategory(View):
     def get(self, request, id):
