@@ -157,7 +157,6 @@ class EditCategory(View):
         c = Category.objects.filter(id=id, is_active=True).first()
         data = request.POST
         category, desc = data.get("category"), data.get("desc")
-        print(data)
         if not ((category and desc) or c):
             messages.warning(request, "Category or Desc can't be empty. OR Category doesn't exists")
             return redirect("manage:category")
