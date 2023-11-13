@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
   <link href="{% static 'css/index.css' %}" rel="stylesheet">
-  <title>{% block title %}{% endblock %} | qrkeeper</title>
+  <title>{% block title %}{% endblock %} | djcms</title>
 </head>
 <body>
 
@@ -44,6 +44,10 @@
             <li><a class="dropdown-item" href="{% url 'manage:add_category' %}">Add Category</a></li>
           </ul>
         </li>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-success" type="submit">Search</button>
+        </form>
         {% endif %}
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="{% url 'accounts:logout' %}">Logout</a>
