@@ -7,13 +7,15 @@
   <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
   <link href="{% static 'css/index.css' %}" rel="stylesheet">
   <title>{% block title %}{% endblock %} | qrkeeper</title>
-  <link rel="icon" href="{% static 'img/favicon.ico' %}">
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'index' %}">djcms</a>
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img src="{% static 'img/logo.png' %}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+      djcms
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -21,6 +23,9 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="{% url 'latest' %}">Latest</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'popular' %}">Popular</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="{% url 'trendings' %}">Trendings</a>

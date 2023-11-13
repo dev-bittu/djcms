@@ -6,7 +6,6 @@ class ManagementAuthMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        print(request.path)
         if request.path.startswith('/manage/'):
             if request.user.is_anonymous or not request.user.is_author:
                 messages.warning(request, "Not authorized to access the page")
