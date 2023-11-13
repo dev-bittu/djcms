@@ -4,14 +4,12 @@
 
 {% block body %}
 <div class="container table-responsive">
-  <div class="row">
+  <div class="row mb-3">
     <h1 class="text-center mb-3 mt-3">
       Manage Blogs
     </h1>
   </div>
-  <div class="row">
-    <!--Create Blog-->
-  </div>
+  <a role="button" class="btn btn-secondary btn-sm round-btn" href='{% url 'manage:create_blog' %}'>Create Blog</a>
   <div class="row">
     {% include 'management/blog_table.html' with blogs=blogs %}
   </div>
