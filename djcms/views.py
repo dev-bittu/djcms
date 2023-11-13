@@ -29,7 +29,7 @@ class Search(View):
         query = request.GET.get("query")
         blogs = Blog.objects.filter(
             (Q(title__icontains=query) | Q(desc__icontains=query)), is_active=True
-            )[:12]
+        )[:12]
         return render(request, "search.html", {"blogs": blogs, "query": query})
 
 class Category(View):
