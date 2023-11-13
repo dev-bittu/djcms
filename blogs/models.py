@@ -7,6 +7,7 @@ from ckeditor.fields import RichTextField
 class Category(models.Model):
     category = models.CharField(max_length=30, unique=True)
     desc = models.TextField()
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.category
