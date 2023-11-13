@@ -22,7 +22,9 @@
     {% endfor %}
   </div>
   <div class="row">
-    <img src="{{ blog.thumbnail.url }}" class="img-fluid rounded mx-auto d-block" alt="blog's thumbnail">
+    <div class="ratio ratio-16x9">
+      <img src="{{ blog.thumbnail.url }}" class="img-fluid rounded mx-auto d-block" alt="blog's thumbnail">
+    </div>
     <p>
       {{ blog.content|safe }}
     </p>
