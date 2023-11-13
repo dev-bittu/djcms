@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 from django.db.models import Q
+from django.views.generic import ListView
 from blogs.models import Blog
 
 class Index(View):
@@ -19,10 +20,15 @@ class Popular(View):
         popular = Blog.objects.filter(is_active=True, is_published=True).order_by("-views")[:10]
         return render(request, "popular.html", {"popular": popular})
 
-class Latest(View):
-    def get(self, request):
-        latest = Blog.objects.filter(is_active=True, is_published=True).order_by("-published_on")[:10]
-        return render(request, "latest.html", {"latest": latest})
+class Latest(ListView):
+    model = Blog
+    template_name = 'latest.html'
+    context_object_name = 'blogs'
+    paginate_by = 10
+    # ordering = ["-published_on"]
+
+    def get_queryset(self):
+        return Blog.objects.filter(is_active=True).order_by("-published_on")
 
 class Search(View):
     def get(self, request):
