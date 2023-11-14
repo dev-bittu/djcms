@@ -14,7 +14,10 @@
     <label for="username" class="form-label">
       Username
     </label>
-    <input type="text" class="form-control" id="username" name="username" placeholder="Username" required autofocus>
+    <input type="text" class="form-control" id="username" name="username" placeholder="Username" aria-describedby="usernameHelp" required autofocus>
+    <ul class="usernameHelp">
+      <li class="form-text">Must be unique</li>
+    </ul>
   </div>
   <div class="mb-3">
     <label for="email" class="form-label">
@@ -26,13 +29,24 @@
     <label for="password1" class="form-label">
       Password
     </label>
-    <input type="password" class="form-control" id="password1" name="password1" placeholder="Password" required>
+    <input type="password" class="form-control" id="password1" name="password1" placeholder="Password" aria-describedby="passwordHelp" required>
+    <ul class="passwordHelp">
+      <li class="form-text">Min length should be 6</li>
+      <li class="form-text">One digit required</li>
+      <li class="form-text">One special character required</li>
+    </ul>
   </div>
   <div class="mb-3">
     <label for="password2" class="form-label">
       Confirm Password
     </label>
     <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm Password" required>
+  </div>
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+    <label class="form-check-label" for="invalidCheck">
+      Agree to <a href="" class="text-decoration-none">terms and conditions</a>
+    </label>
   </div>
   <button type="submit" class="btn btn-success w-100">Register</button>
   <div class="mt-3">
