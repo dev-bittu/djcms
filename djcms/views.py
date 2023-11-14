@@ -3,6 +3,7 @@ from django.views import View
 from django.db.models import Q
 from django.views.generic import ListView
 from blogs.models import Blog
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 class Index(View):
     def get(self, request):
@@ -41,6 +42,22 @@ class Search(ListView):
             (Q(title__icontains=query) | Q(desc__icontains=query)), is_active=True
         ).order_by("-views")
         return blogs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        paginator = Paginator(self.object_list, self.get_paginate_by(self.object_list))
+        page = self.request.GET.get("page")
+
+        try:
+            blogs = paginator.page(page)
+        except PageNotAnInteger:
+            blogs = paginator.page(1)
+        except EmptyPage:
+            blogs = paginator.page(paginator.num_pages)
+
+        context["blogs"] = blogs
+        context["query"] = self.request.GET.get("query")
+        return context
 
 class Category(View):
     def get(self, request):
