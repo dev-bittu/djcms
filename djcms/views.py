@@ -121,3 +121,7 @@ class GetCategory(View):
     def get(self, request, cat):
         category = get_object_or_404(Category, title=cat)
         return render(request, "get_category.html", {"category": category})
+
+class TermsAndConditions(View):
+    def get(self, request):
+        return render(request, "terms-and-conditions.html")

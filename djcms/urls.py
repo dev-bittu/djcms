@@ -30,6 +30,7 @@ urlpatterns = [
     path("latest/", views.Latest.as_view(), name="latest"),
     path("popular/", views.Popular.as_view(), name="popular"),
     path("search/", views.Search.as_view(), name="search"),
+    path("terms-and-conditions", views.TermsAndConditions.as_view(), name="terms_and_conditions"),
     path("category/", views.Category.as_view(), name="category"),
     path("category/<str:cat>/", views.GetCategory.as_view(), name="get_category"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
