@@ -35,8 +35,20 @@
   <div class="row mb-3">
     <h1>Comments ({{ comments.count }})</h1>
   </div>
+  <div class="row">
+    <form action="{% url 'blogs:create_comment' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="id" value="{{ blog.id }}">
+      <div class="mb-3">
+        <label for="comment" class="form-label">Comment:</label>
+        <textarea class="form-control" id="comment" rows="3" name="comment" placeholder="Type comment"></textarea>
+      </div>
+      <button type="submit" class="float-end btn btn-primary">Submit</button>
+    </form>
+  </div>
+  <br><hr><br>
   {% for comment in comments %}
-  <div class="row mb-2">
+  <div class="row">
     <b>@{{ comment.creator.username }}<b>
     <span class="badge text-bg-primary">{{ comment.published_on }}</span>
     <p>{{ comment.comment }}</p>
@@ -49,6 +61,7 @@
       </div>
     </div>
   </div>
+  <hr>
   {% endfor %}
 </div>
 {% endblock %}

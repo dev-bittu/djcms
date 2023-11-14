@@ -8,7 +8,7 @@ from .forms import CKEditorForm
 # Create your views here.
 class ManageBlog(View):
     def get(self, request):
-        blogs = Blog.objects.filter(is_active=True)
+        blogs = Blog.objects.filter(is_active=True, creator=request.user)
         return render(request, "management/blog.html", {"blogs": blogs})
 
 class ManageCategory(View):
