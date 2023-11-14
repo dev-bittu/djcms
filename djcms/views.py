@@ -25,18 +25,22 @@ class Latest(ListView):
     template_name = 'latest.html'
     context_object_name = 'blogs'
     paginate_by = 10
-    # ordering = ["-published_on"]
 
     def get_queryset(self):
         return Blog.objects.filter(is_active=True).order_by("-published_on")
 
-class Search(View):
-    def get(self, request):
-        query = request.GET.get("query")
+class Search(ListView):
+    model = Blog
+    template_name = "search.html"
+    context_object_name = "blogs"
+    paginate_by = 2
+
+    def get_queryset(self):
+        query = self.request.GET.get("query")
         blogs = Blog.objects.filter(
             (Q(title__icontains=query) | Q(desc__icontains=query)), is_active=True
-        )[:12]
-        return render(request, "search.html", {"blogs": blogs, "query": query})
+        ).order_by("-views")
+        return blogs
 
 class Category(View):
     def get(self, request):

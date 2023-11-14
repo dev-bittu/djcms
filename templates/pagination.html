@@ -1,17 +1,40 @@
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+<div class="row mt-5 mb-3">
+  <p>Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}</p>
+</div>
+<div class="row">
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      {% if blogs.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ blogs.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true">Previous</span>
+          </a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-disabled="true">Previous</span>
+        </li>
+      {% endif %}
+      {% for i in blogs.paginator.page_range %}
+        {% if blogs.number == i %}
+          <li class="page-item active" aria-current="page">
+            <span class="page-link">{{ i }}</span>
+          </li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if blogs.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ blogs.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">Next</span>
+          </a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-disabled="true">Next</span>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>

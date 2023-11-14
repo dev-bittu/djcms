@@ -14,5 +14,6 @@
     <p class="mt-5">No data found !!!<p>
     {% endfor %}
   </div>
+  {% include 'pagination.html' with blogs=blogs %}
 </div>
 {% endblock %}
