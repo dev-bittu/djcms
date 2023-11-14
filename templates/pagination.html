@@ -7,12 +7,12 @@
       {% if blogs.has_previous %}
         <li class="page-item">
           <a class="page-link" href="?{% if query %}query={{query}}&{% endif %}page={{ blogs.previous_page_number }}" aria-label="Previous">
-            <span aria-hidden="true">Previous</span>
+            <i class="bi bi-caret-left"></i>
           </a>
         </li>
       {% else %}
         <li class="page-item disabled">
-          <span class="page-link" aria-disabled="true">Previous</span>
+          <i class="page-link bi bi-caret-left"></i>
         </li>
       {% endif %}
       {% for i in blogs.paginator.page_range %}
@@ -29,12 +29,12 @@
       {% if blogs.has_next %}
         <li class="page-item">
           <a class="page-link" href="?{% if query %}query={{query}}&{% endif %}page={{ blogs.next_page_number }}" aria-label="Next">
-            <span aria-hidden="true">Next</span>
+            <i class="bi bi-caret-right"></i>
           </a>
         </li>
       {% else %}
         <li class="page-item disabled">
-          <span class="page-link" aria-disabled="true">Next</span>
+          <i class="page-link bi bi-caret-right"></i>
         </li>
       {% endif %}
     </ul>
