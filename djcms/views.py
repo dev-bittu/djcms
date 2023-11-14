@@ -11,15 +11,53 @@ class Index(View):
         popular = Blog.objects.filter(is_active=True, is_published=True).order_by("-views")[:3]
         return render(request, "index.html", {"latest": latest_blogs, "popular": popular})
 
-class Trendings(View):
-    def get(self, request):
-        trendings = Blog.objects.filter(is_active=True, is_published=True).order_by("-views")[:10]
-        return render(request, "trendings.html", {"trendings": trendings})
+class Trendings(ListView):
+    model = Blog
+    template_name = 'trendings.html'
+    context_object_name = 'blogs'
+    paginate_by = 9
 
-class Popular(View):
-    def get(self, request):
-        popular = Blog.objects.filter(is_active=True, is_published=True).order_by("-views")[:10]
-        return render(request, "popular.html", {"popular": popular})
+    def get_queryset(self):
+        return Blog.objects.filter(is_active=True).order_by("-views")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        paginator = Paginator(self.object_list, self.get_paginate_by(self.object_list))
+        page = self.request.GET.get("page")
+
+        try:
+            blogs = paginator.page(page)
+        except PageNotAnInteger:
+            blogs = paginator.page(1)
+        except EmptyPage:
+            blogs = paginator.page(paginator.num_pages)
+
+        context["blogs"] = blogs
+        return context
+
+class Popular(ListView):
+    model = Blog
+    template_name = 'popular.html'
+    context_object_name = 'blogs'
+    paginate_by = 9
+
+    def get_queryset(self):
+        return Blog.objects.filter(is_active=True).order_by("-views")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        paginator = Paginator(self.object_list, self.get_paginate_by(self.object_list))
+        page = self.request.GET.get("page")
+
+        try:
+            blogs = paginator.page(page)
+        except PageNotAnInteger:
+            blogs = paginator.page(1)
+        except EmptyPage:
+            blogs = paginator.page(paginator.num_pages)
+
+        context["blogs"] = blogs
+        return context
 
 class Latest(ListView):
     model = Blog
