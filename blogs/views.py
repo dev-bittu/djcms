@@ -12,4 +12,5 @@ class BlogView(View):
         blog.views = F("views") + 1
         blog.save()
         blog.refresh_from_db()
-        return render(request, "blogs/blog.html", {"blog": blog})
+        comments = blog.comments.filter(is_active=True)
+        return render(request, "blogs/blog.html", {"blog": blog, "comments": comments})

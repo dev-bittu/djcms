@@ -29,5 +29,26 @@
       {{ blog.content|safe }}
     </p>
   </div>
+
+  <br><br><hr>
+  
+  <div class="row mb-3">
+    <h1>Comments ({{ comments.count }})</h1>
+  </div>
+  {% for comment in comments %}
+  <div class="row mb-2">
+    <b>@{{ comment.creator.username }}<b>
+    <span class="badge text-bg-primary">{{ comment.published_on }}</span>
+    <p>{{ comment.comment }}</p>
+    <a class="text-decoration-none" data-bs-toggle="collapse" href="#reply{{comment.id}}" role="button" aria-expanded="false" aria-controls="reply{{comment.id}}">
+      Reply
+    </a>
+    <div class="collapse" id="reply{{comment.id}}">
+      <div class="card card-body">
+        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 {% endblock %}
