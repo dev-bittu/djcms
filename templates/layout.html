@@ -43,6 +43,7 @@
         {% if request.user.is_author %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-sliders"></i>
             Manage
           </a>
           <ul class="dropdown-menu">
@@ -54,6 +55,7 @@
             </li>
             <li>
               <a class="dropdown-item" href="{% url 'manage:category' %}">
+                <i class="bi bi-grid"></i>
                 Category
               </a>
             </li>
