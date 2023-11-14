@@ -43,9 +43,11 @@
     <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm Password" required>
   </div>
   <div class="form-check mb-3">
-    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+    <input class="form-check-input" type="checkbox" value="" id="invalidCheck agreeCheckbox" required>
     <label class="form-check-label" for="invalidCheck">
-      Agree to <a href="" class="text-decoration-none">terms and conditions</a>
+      Agree to <a class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#termsModal">
+        terms and conditions
+      </a> 
     </label>
   </div>
   <button type="submit" class="btn btn-success w-100">Register</button>
@@ -53,6 +55,26 @@
     <p>Already have account? <a href="{% url 'accounts:login' %}" class="text-decoration-none">Login</a></p>
   </div>
 </form>
+</div>
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          By registering yourself, you agree to abide by the terms and conditions of our website. This includes but is not limited to respecting the privacy of other users, refraining from posting inappropriate content, and following all applicable laws and regulations.
+          <a href="#" class="text-decoration-none">Read More</a>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="handleAgree()">Agree</button>
+      </div>
+    </div>
+  </div>
 </div>
 <script src="{% static 'js/accounts/register.js' %}"></script>
 {% endblock %}

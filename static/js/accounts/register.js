@@ -15,3 +15,12 @@ form.onsubmit = (event) => {
   }
 }
 
+
+function handleAgree() {
+  alert(1)
+  var checkbox = document.getElementById('agreeCheckbox');
+  checkbox.checked = true;
+  var modal = document.getElementById('termsModal');
+  modal.style.display = 'none';
+}
+
