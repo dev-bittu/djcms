@@ -9,7 +9,10 @@
       Manage Categories
     </h1>
   </div>
-  <a role="button" class="btn btn-secondary btn-sm round-btn" href='{% url 'manage:create_category' %}'>Create Category</a>
+  <a role="button" class="btn btn-secondary btn-sm round-btn" href='{% url 'manage:create_category' %}'>
+    <i class="bi bi-plus-lg"></i>
+    Create Category
+  </a>
   <div class="row">
     <table class="table table-hover">
       <thead>
@@ -30,9 +33,11 @@
           <td>{{ category.desc|truncatechars:50 }}</td>
           <td>
             <a class="btn btn-warning" href="{% url 'manage:edit_category' category.id %}" role="button">
+              <i class="bi bi-pencil-square"></i>
               Edit
             </a>
             <a class="btn btn-danger" href="{% url 'manage:delete_category' category.id %}" role="button">
+              <i class="bi bi-trash3"></i>
               Delete
             </a>
           </td>

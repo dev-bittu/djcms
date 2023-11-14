@@ -9,7 +9,10 @@
       Manage Blogs
     </h1>
   </div>
-  <a role="button" class="btn btn-secondary btn-sm round-btn" href='{% url 'manage:create_blog' %}'>Create Blog</a>
+  <a role="button" class="btn btn-secondary btn-sm round-btn" href='{% url 'manage:create_blog' %}'>
+    <i class="bi bi-plus-lg"></i>
+    Create Blog
+  </a>
   <div class="row">
     {% include 'management/blog_table.html' with blogs=blogs %}
   </div>

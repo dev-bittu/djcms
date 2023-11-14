@@ -23,13 +23,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'latest' %}">Latest</a>
+          <a class="nav-link" aria-current="page" href="{% url 'latest' %}">
+            Latest
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'popular' %}">Popular</a>
+          <a class="nav-link" aria-current="page" href="{% url 'popular' %}">
+            Popular
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'trendings' %}">Trendings</a>
+          <a class="nav-link" aria-current="page" href="{% url 'trendings' %}">
+            <i class="bi bi-graph-up-arrow"></i>
+            Trendings
+          </a>
         </li>
         {% if request.user.is_authenticated %}
         {% if request.user.is_author %}
@@ -38,24 +45,44 @@
             Manage
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'manage:blog' %}">Blogs</a></li>
-            <li><a class="dropdown-item" href="{% url 'manage:category' %}">Category</a></li>
+            <li>
+              <a class="dropdown-item" href="{% url 'manage:blog' %}">
+                <i class="bi bi-book"></i>
+                Blogs
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'manage:category' %}">
+                Category
+              </a>
+            </li>
           </ul>
         </li>
         <form class="d-flex" role="search" action="{% url 'search' %}" method="get">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
-          <button class="btn btn-success" type="submit">Search</button>
+          <button class="btn btn-success" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
         </form>
         {% endif %}
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'accounts:logout' %}">Logout</a>
+          <a class="nav-link" aria-current="page" href="{% url 'accounts:logout' %}">
+            <i class="bi bi-box-arrow-right"></i>
+            Logout
+          </a>
         </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'accounts:login' %}">Login</a>
+          <a class="nav-link" aria-current="page" href="{% url 'accounts:login' %}">
+            <i class="bi bi-box-arrow-in-right"></i>
+            Login
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'accounts:register' %}">Register</a>
+          <a class="nav-link" aria-current="page" href="{% url 'accounts:register' %}">
+            <i class="bi bi-person-add"></i>
+            Register
+          </a>
         </li>
         {% endif %}
       </ul>

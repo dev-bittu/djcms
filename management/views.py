@@ -13,7 +13,7 @@ class ManageBlog(View):
 
 class ManageCategory(View):
     def get(self, request):
-        categories = Category.objects.filter(is_active=True, creator=request.user)
+        categories = Category.objects.filter(is_active=True)
         return render(request, "management/category.html", {"categories": categories})
 
 

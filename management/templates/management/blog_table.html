@@ -23,9 +23,11 @@
       <td>{% if blog.is_published %}Yes{% else %}No{% endif %}</td>
       <td>
         <a class="btn btn-warning" href="{% url 'manage:edit_blog' blog.id %}" role="button">
+          <i class="bi bi-pencil-square"></i>
           Edit
         </a>
         <a class="btn btn-danger" href="{% url 'manage:delete_blog' blog.id %}" role="button">
+          <i class="bi bi-trash3"></i>
           Delete
         </a>
       </td>
