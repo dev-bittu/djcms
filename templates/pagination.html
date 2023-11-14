@@ -6,7 +6,7 @@
     <ul class="pagination justify-content-center">
       {% if blogs.has_previous %}
         <li class="page-item">
-          <a class="page-link" href="?query={{query}}&page={{ blogs.previous_page_number }}" aria-label="Previous">
+          <a class="page-link" href="?{% if query %}query={{query}}&{% endif %}page={{ blogs.previous_page_number }}" aria-label="Previous">
             <span aria-hidden="true">Previous</span>
           </a>
         </li>
@@ -22,13 +22,13 @@
           </li>
         {% else %}
           <li class="page-item">
-            <a class="page-link" href="?query={{query}}&page={{ i }}">{{ i }}</a>
+            <a class="page-link" href="?{% if query %}query={{query}}&{% endif %}page={{ i }}">{{ i }}</a>
           </li>
         {% endif %}
       {% endfor %}
       {% if blogs.has_next %}
         <li class="page-item">
-          <a class="page-link" href="?query={{query}}&page={{ blogs.next_page_number }}" aria-label="Next">
+          <a class="page-link" href="?{% if query %}query={{query}}&{% endif %}page={{ blogs.next_page_number }}" aria-label="Next">
             <span aria-hidden="true">Next</span>
           </a>
         </li>

@@ -25,10 +25,25 @@ class Latest(ListView):
     model = Blog
     template_name = 'latest.html'
     context_object_name = 'blogs'
-    paginate_by = 10
+    paginate_by = 9
 
     def get_queryset(self):
         return Blog.objects.filter(is_active=True).order_by("-published_on")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        paginator = Paginator(self.object_list, self.get_paginate_by(self.object_list))
+        page = self.request.GET.get("page")
+
+        try:
+            blogs = paginator.page(page)
+        except PageNotAnInteger:
+            blogs = paginator.page(1)
+        except EmptyPage:
+            blogs = paginator.page(paginator.num_pages)
+
+        context["blogs"] = blogs
+        return context
 
 class Search(ListView):
     model = Blog
@@ -37,7 +52,7 @@ class Search(ListView):
     paginate_by = 9
 
     def get_queryset(self):
-        query = self.request.GET.get("query")
+        query = self.request.GET.get("query", "")
         blogs = Blog.objects.filter(
             (Q(title__icontains=query) | Q(desc__icontains=query)), is_active=True
         ).order_by("-views")
