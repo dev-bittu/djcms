@@ -38,7 +38,7 @@ class Comment(models.Model):
     comment = models.TextField()
     likes = models.IntegerField(default=0)
     blog = models.ForeignKey(to=Blog, on_delete=models.SET_NULL, related_name="comments", null=True)
-    creater = models.ForeignKey(to=User, on_delete=models.SET_NULL, related_name="comments", null=True)
+    creator = models.ForeignKey(to=User, on_delete=models.SET_NULL, related_name="comments", null=True)
     published_on = models.DateField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 
