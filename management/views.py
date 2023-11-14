@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
-from blogs.models import Category, Blog
+from blogs.models import Category, Blog, Comment
 from django.utils import timezone
 from .forms import CKEditorForm
 
@@ -174,3 +174,16 @@ class DeleteCategory(View):
         category.save()
         messages.info(request, "Category removed")
         return redirect("manage:category")
+
+class ManageComment(View):
+    def get(self, request):
+        comments = Comment.objects.filter(is_active=True)
+        return render(request, "management/comment.html", {"comments": comments})
+
+class DeleteComment(View):
+    def get(self, request, id):
+        comment = get_object_or_404(Comment.objects.filter(id=id, is_active=True))
+        comment.is_active = False
+        comment.save()
+        messages.success(request, "Comment deleted")
+        return redirect("manage:comment")

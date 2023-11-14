@@ -60,6 +60,12 @@
                 Category
               </a>
             </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'manage:comment' %}">
+                <i class="bi bi-chat-left-text"></i>
+                Comment
+              </a>
+            </li>
           </ul>
         </li>
         <form class="d-flex" role="search" action="{% url 'search' %}" method="get">
