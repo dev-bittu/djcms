@@ -43,7 +43,11 @@
         <label for="comment" class="form-label">Comment:</label>
         <textarea class="form-control" id="comment" rows="3" name="comment" placeholder="Type comment"></textarea>
       </div>
+      {% if request.user.is_authenticated %}
       <button type="submit" class="float-end btn btn-primary">Submit</button>
+      {% else %}
+      <a href="{% url 'accounts:login' %}" class="btn btn-primary float-end">Login</a>
+      {% endif %}
     </form>
   </div>
   <br><hr><br>
