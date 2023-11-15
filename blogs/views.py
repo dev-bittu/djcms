@@ -60,8 +60,8 @@ class CreateReply(View):
 class CreateBookmark(View):
     def post(self, request):
         blog = get_object_or_404(Blog.objects.filter(is_active=True, id=request.POST.get("id")))
-        b = Bookmark.objects.filter(creator=request.user, blog=blog).first()
-        if b:
+        bookmarked = Bookmark.objects.filter(creator=request.user, blog=blog).first()
+        if bookmarked:
             messages.info(request, "Already bookmarked this blog")
         else:
             b = Bookmark(
