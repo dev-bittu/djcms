@@ -56,9 +56,13 @@
       Reply
     </a>
     <div class="collapse" id="reply{{comment.id}}">
+      {% for reply in comments.replies %}
       <div class="card card-body">
-        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+        <b>@{{ reply.creator.username }}<b>
+        <span class="badge text-bg-primary">{{ reply.published_on }}</span>
+        <p>{{ reply.reply }}</p>
       </div>
+      {% endfor %}
     </div>
   </div>
   <hr>

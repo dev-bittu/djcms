@@ -44,3 +44,14 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
+class Reply(models.Model):
+    reply = models.TextField()
+    likes = models.IntegerField(default=0)
+    comment = models.ForeignKey(to=Comment, on_delete=models.SET_NULL, related_name="replies", null=True, blank=True)
+    creator = models.ForeignKey(to=User, on_delete=models.SET_NULL, related_name="replies", null=True)
+    published_on = models.DateField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.reply

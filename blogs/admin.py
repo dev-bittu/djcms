@@ -15,3 +15,5 @@ class CategoryAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ["comment", "blog", "likes", "published_on", "is_active"]
     fields = ["comment", "blog"]
+
+admin.site.register(Reply)
