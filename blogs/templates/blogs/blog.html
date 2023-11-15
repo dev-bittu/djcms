@@ -60,13 +60,20 @@
       Reply
     </a>
     <div class="collapse" id="reply{{comment.id}}">
-      {% for reply in comments.replies %}
       <div class="card card-body">
+        {% for reply in comment.replies.all %}
         <b>@{{ reply.creator.username }}<b>
         <span class="badge text-bg-primary">{{ reply.published_on }}</span>
         <p>{{ reply.reply }}</p>
+        <hr>
+        {% endfor %}
+        <form action="{% url 'blogs:create_reply' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="id" value="{{comment.id}}">
+          <input type="text" class="form-control" name="reply" placeholder="Type reply">
+          <button type="submit" class="float-end btn btn-primary">Send</button>
+        </form>
       </div>
-      {% endfor %}
     </div>
   </div>
   <hr>

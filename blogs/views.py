@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
 from django.db.models import F
-from .models import Blog, Comment
+from .models import Blog, Comment, Reply
 
 # Create your views here.
 class BlogView(View):
@@ -21,8 +21,12 @@ class CreateComment(View):
             messages.warning(request, "Need to login first")
             return redirect("index")
         blog = get_object_or_404(Blog.objects.filter(is_active=True, id=request.POST.get("id")))
+        comment = request.POST.get("comment")
+        if not comment:
+            messages.warning(request, "Comment required")
+            redirect("blogs:blog", slug=blog.slug)
         c = Comment(
-            comment = request.POST.get("comment", ""),
+            comment = comment,
             creator = request.user,
             blog = blog
         )
@@ -30,3 +34,23 @@ class CreateComment(View):
         messages.success(request, "Comment created")
         return redirect("blogs:blog", slug=blog.slug)
 
+class CreateReply(View):
+    def post(self, request):
+        if request.user.is_anonymous:
+            messages.warning(request, "You are not aithenticated")
+            return redirect("index")
+        comment = get_object_or_404(Comment.objects.filter(is_active=True, id=request.POST.get("id")))
+        reply = request.POST.get("reply")
+        if not reply:
+            messages.warning(request, "Reply required")
+            return redirect("blogs:blog", slug=comment.blog.slug)
+
+        r = Reply(
+            reply = request.POST.get("reply", ""),
+            comment = comment,
+            creator = request.user
+        )
+        r.save()
+
+        messages.success(request, "Reply created")
+        return redirect("blogs:blog", slug=comment.blog.slug)
