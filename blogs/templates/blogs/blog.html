@@ -34,11 +34,13 @@
     <div class="col">
       <a href="" class="text-decoration-none">
         <i class="bi bi-hand-thumbs-up"></i>
+        {{ blog.likes }}
       </a>
     </div>
     <div class="col">
-      <a href="" class="text-decoration-none">
+      <a href="#comments" class="text-decoration-none">
         <i class="bi bi-chat-text"></i>
+        {{ blog.comments.count }}
       </a>
     </div>
     <div class="col">
@@ -46,7 +48,7 @@
         <i class="bi bi-bookmark-plus"></i>
       </a>
     </div>
-    <div class="col"
+    <div class="col">
       <a href="" class="text-decoration-none float-end">
         <i class="bi bi-box-arrow-up"></i>
       </a>
@@ -54,7 +56,7 @@
   </div>
   <br><br><hr>
   
-  <div class="row mb-3">
+  <div class="row mb-3" id="comments">
     <h1>
       <i class="bi bi-chat-left-text"></i>
       Comments ({{ comments.count }})
