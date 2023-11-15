@@ -40,6 +40,12 @@
             Trendings
           </a>
         </li>
+        <form class="d-flex" role="search" action="{% url 'search' %}" method="get">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+          <button class="btn btn-success" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
         {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="{% url 'bookmark' %}">
@@ -74,12 +80,6 @@
             </li>
           </ul>
         </li>
-        <form class="d-flex" role="search" action="{% url 'search' %}" method="get">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
-          <button class="btn btn-success" type="submit">
-            <i class="bi bi-search"></i>
-          </button>
-        </form>
         {% endif %}
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="{% url 'accounts:logout' %}">
