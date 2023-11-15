@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
 from django.db.models import F
-from .models import Blog, Comment, Reply, Bookmark
+from .models import *
 
 # Create your views here.
 class BlogView(View):
@@ -13,7 +13,16 @@ class BlogView(View):
         blog.save()
         blog.refresh_from_db()
         comments = blog.comments.filter(is_active=True)
-        return render(request, "blogs/blog.html", {"blog": blog, "comments": comments})
+        bookmarked = Bookmark.objects.filter(creator=request.user, blog=blog).first()
+        return render(
+            request,
+            "blogs/blog.html",
+            {
+                "blog": blog,
+                "comments": comments,
+                "bookmarked": bookmarked
+            }
+        )
 
 class CreateComment(View):
     def get(self, request):

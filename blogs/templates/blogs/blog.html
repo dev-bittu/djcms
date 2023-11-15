@@ -40,10 +40,15 @@
     <div class="col">
       <a href="#comments" class="text-decoration-none">
         <i class="bi bi-chat-text"></i>
-        {{ blog.comments.count }}
+        {{ comments.count }}
       </a>
     </div>
     <div class="col">
+      {% if bookmarked %}
+      <a href="#" class="text-decoration-none">
+        <i class="bi bi-bookmark-check-fill"></i>
+      </a>
+      {% else %}
       <form action="{% url 'blogs:create_bookmark' %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="id" value="{{blog.id}}">
@@ -51,6 +56,7 @@
           <i class="bi bi-bookmark-plus"></i>
         </button>
       </form>
+      {% endif %}
     </div>
     <div class="col">
       <a href="" class="text-decoration-none float-end">
