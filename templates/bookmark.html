@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block title %}Bookmarks{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+  <div class="row">
+    <h1 class="text-center mt-3 mb-3">
+      Bookmarks
+    </h1>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for blog in blogs %}
+      {% include 'card.html' with blog=blog %}
+    {% empty %}
+      </div>
+      <div class="row mt-5">
+        <p class="text-center">
+          Not bookmark any blog yet !!!
+        </p>
+    {% endfor %}
+  </div>
+  {% include 'pagination.html' with blogs=blogs %}
+</div>
+{% endblock %}

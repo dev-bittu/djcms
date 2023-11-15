@@ -17,3 +17,5 @@ class CommentAdmin(admin.ModelAdmin):
     fields = ["comment", "blog"]
 
 admin.site.register(Reply)
+
+admin.site.register(Bookmark)

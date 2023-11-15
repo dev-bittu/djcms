@@ -55,3 +55,11 @@ class Reply(models.Model):
 
     def __str__(self):
         return self.reply
+
+class Bookmark(models.Model):
+    blog = models.ForeignKey(to=Blog, on_delete=models.SET_NULL, related_name="bookmarks", null=True, blank=True)
+    creator = models.ForeignKey(to=User, on_delete=models.SET_NULL, related_name="bookmarks", null=True, blank=True)
+    created_on = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Bookmark({self.id}, {creater.username})"
