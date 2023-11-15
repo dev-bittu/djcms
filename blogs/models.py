@@ -18,7 +18,6 @@ class Blog(models.Model):
     desc = models.TextField()
     content = RichTextField()
     thumbnail = models.ImageField(upload_to="thumbnails/%Y/%m/%d/")
-    likes = models.IntegerField(default=0)
     views = models.IntegerField(default=0)
     categories = models.ManyToManyField(Category, related_name="blogs")
     is_active = models.BooleanField(default=True)
@@ -62,4 +61,11 @@ class Bookmark(models.Model):
     created_on = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"Bookmark({self.id}, {creater.username})"
+        return f"Bookmark({self.id}, {self.creater.username})"
+
+class BlogLike(models.Model):
+    blog = models.ForeignKey(to=Blog, on_delete=models.SET_NULL, related_name="likes", null=True, blank=True)
+    creator = models.ForeignKey(to=User, on_delete=models.SET_NULL, related_name="likes", null=True, blank=True)
+
+    def __str__(self):
+        return f"BlogLike({self.id}, {self.creator.username})"

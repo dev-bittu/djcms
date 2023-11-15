@@ -32,10 +32,21 @@
   <br>
   <div class="row">
     <div class="col">
-      <a href="" class="text-decoration-none">
-        <i class="bi bi-hand-thumbs-up"></i>
-        {{ blog.likes }}
+      {% if liked %}
+      <a href="#" class="text-decoration-none">
+        <i class="bi bi-hand-thumbs-up-fill"></i>
+        {{ blog.likes.count }}
       </a>
+      {% else %}
+      <form action="{% url 'blogs:create_like' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{blog.id}}">
+        <button type="submit" style="background:none!important;border:none;padding:0!important;" class="text-primary">
+          <i class="bi bi-hand-thumbs-up"></i>
+          {{ blog.likes.count }}
+        </button>
+      </form>
+      {% endif %}
     </div>
     <div class="col">
       <a href="#comments" class="text-decoration-none">

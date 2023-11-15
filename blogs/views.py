@@ -12,17 +12,16 @@ class BlogView(View):
         blog.views = F("views") + 1
         blog.save()
         blog.refresh_from_db()
-        comments = blog.comments.filter(is_active=True)
-        bookmarked = Bookmark.objects.filter(creator=request.user, blog=blog).first()
-        return render(
-            request,
-            "blogs/blog.html",
-            {
-                "blog": blog,
-                "comments": comments,
-                "bookmarked": bookmarked
-            }
-        )
+
+        context = {
+            "blog": blog,
+            "comments": blog.comments.filter(is_active=True)
+        }
+        if request.user.is_authenticated:
+            context["bookmarked"] = Bookmark.objects.filter(creator=request.user, blog=blog).first()
+            context["liked"] = BlogLike.objects.filter(blog=blog, creator=request.user).first()
+
+        return render(request, "blogs/blog.html", context)
 
 class CreateComment(View):
     def get(self, request):
@@ -88,4 +87,19 @@ class CreateBookmark(View):
             )
             b.save()
             messages.success(request, "Bookmark created")
+        return redirect("blogs:blog", slug=blog.slug)
+
+class CreateLike(View):
+    def post(self, request):
+        if request.user.is_anonymous:
+            messages.warning(request, "Need to login")
+            return redirect("accounts:login")
+        blog = get_object_or_404(Blog.objects.filter(is_active=True, id=request.POST.get("id")))
+        liked = BlogLike.objects.filter(blog=blog, creator=request.user).first()
+        if liked:
+            messages.info(request, "You are already liked this post")
+        else:
+            l = BlogLike(creator=request.user, blog=blog)
+            l.save()
+            messages.success(request, "Liked this blog")
         return redirect("blogs:blog", slug=blog.slug)
