@@ -16,6 +16,10 @@ class BlogView(View):
         return render(request, "blogs/blog.html", {"blog": blog, "comments": comments})
 
 class CreateComment(View):
+    def get(self, request):
+        blog = get_object_or_404(Blog.objects.filter(is_active=True, id=request.GET.get("id")))
+        return redirect("blogs:blog", slug=blog.slug)
+
     def post(self, request):
         if request.user.is_anonymous:
             messages.warning(request, "Need to login first")
@@ -35,6 +39,10 @@ class CreateComment(View):
         return redirect("blogs:blog", slug=blog.slug)
 
 class CreateReply(View):
+    def get(self, request):
+        comment = get_object_or_404(Comment.objects.filter(is_active=True, id=request.GET.get("id")))
+        return redirect("blogs:blog", slug=comment.blog.slug)
+
     def post(self, request):
         if request.user.is_anonymous:
             messages.warning(request, "You are not aithenticated")
