@@ -130,7 +130,7 @@ class TermsAndConditions(View):
 class BookmarkView(ListView):
     model = Bookmark
     template_name = 'bookmark.html'
-    context_object_name = 'blogs'
+    context_object_name = 'bookmarks'
     paginate_by = 9
 
     def get_queryset(self):
@@ -145,11 +145,11 @@ class BookmarkView(ListView):
         page = self.request.GET.get("page")
 
         try:
-            blogs = paginator.page(page)
+            bookmarks = paginator.page(page)
         except PageNotAnInteger:
-            blogs = paginator.page(1)
+            bookmarks = paginator.page(1)
         except EmptyPage:
-            blogs = paginator.page(paginator.num_pages)
+            bookmarks = paginator.page(paginator.num_pages)
 
-        context["blogs"] = blogs
+        context["bookmarks"] = bookmarks
         return context

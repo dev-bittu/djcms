@@ -44,9 +44,13 @@
       </a>
     </div>
     <div class="col">
-      <a href="" class="text-decoration-none float-end">
-        <i class="bi bi-bookmark-plus"></i>
-      </a>
+      <form action="{% url 'blogs:create_bookmark' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{blog.id}}">
+        <button type="submit" style="background:none!important;border:none;padding:0!important;" class="float-end text-primary">
+          <i class="bi bi-bookmark-plus"></i>
+        </button>
+      </form>
     </div>
     <div class="col">
       <a href="" class="text-decoration-none float-end">

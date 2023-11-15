@@ -10,8 +10,10 @@
     </h1>
   </div>
   <div class="row row-cols-1 row-cols-md-3 g-4">
-    {% for blog in blogs %}
-      {% include 'card.html' with blog=blog %}
+    {% for bookmark in bookmarks %}
+      {% if bookmark.blog.is_active %}
+        {% include 'card.html' with blog=bookmark.blog %}
+      {% endif %}
     {% empty %}
       </div>
       <div class="row mt-5">
@@ -20,6 +22,6 @@
         </p>
     {% endfor %}
   </div>
-  {% include 'pagination.html' with blogs=blogs %}
+  {% include 'pagination.html' with blogs=bookmarks %}
 </div>
 {% endblock %}

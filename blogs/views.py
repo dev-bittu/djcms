@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
 from django.db.models import F
-from .models import Blog, Comment, Reply
+from .models import Blog, Comment, Reply, Bookmark
 
 # Create your views here.
 class BlogView(View):
@@ -62,3 +62,21 @@ class CreateReply(View):
 
         messages.success(request, "Reply created")
         return redirect("blogs:blog", slug=comment.blog.slug)
+
+class CreateBookmark(View):
+    def post(self, request):
+        if request.user.is_anonymous:
+            messages.warning(request, "login required")
+            return redirect("accounts:login")
+        blog = get_object_or_404(Blog.objects.filter(is_active=True, id=request.POST.get("id")))
+        b = Bookmark.objects.filter(creator=request.user, blog=blog).first()
+        if b:
+            messages.info(request, "Already bookmarked this blog")
+        else:
+            b = Bookmark(
+                blog = blog,
+                creator = request.user
+            )
+            b.save()
+            messages.success(request, "Bookmark created")
+        return redirect("blogs:blog", slug=blog.slug)
