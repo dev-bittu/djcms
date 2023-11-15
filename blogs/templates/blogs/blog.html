@@ -33,7 +33,10 @@
   <br><br><hr>
   
   <div class="row mb-3">
-    <h1>Comments ({{ comments.count }})</h1>
+    <h1>
+      <i class="bi bi-chat-left-text"></i>
+      Comments ({{ comments.count }})
+    </h1>
   </div>
   <div class="row">
     <form action="{% url 'blogs:create_comment' %}" method="post">
@@ -44,7 +47,10 @@
         <textarea class="form-control" id="comment" rows="3" name="comment" placeholder="Type comment"></textarea>
       </div>
       {% if request.user.is_authenticated %}
-      <button type="submit" class="float-end btn btn-primary">Submit</button>
+      <button type="submit" class="float-end btn btn-primary">
+        <i class="bi bi-send"></i>
+        Submit
+      </button>
       {% else %}
       <a href="{% url 'accounts:login' %}" class="btn btn-primary float-end">Login</a>
       {% endif %}
@@ -57,6 +63,7 @@
     <span class="badge text-bg-primary">{{ comment.published_on }}</span>
     <p>{{ comment.comment }}</p>
     <a class="text-decoration-none" data-bs-toggle="collapse" href="#reply{{comment.id}}" role="button" aria-expanded="false" aria-controls="reply{{comment.id}}">
+      <i class="bi bi-chat-right-text"></i>
       Reply
     </a>
     <div class="collapse" id="reply{{comment.id}}">
@@ -69,9 +76,17 @@
         {% endfor %}
         <form action="{% url 'blogs:create_reply' %}" method="post">
           {% csrf_token %}
-          <input type="hidden" name="id" value="{{comment.id}}">
-          <input type="text" class="form-control" name="reply" placeholder="Type reply">
-          <button type="submit" class="float-end btn btn-primary">Send</button>
+          <div class="row"> 
+            <input type="hidden" name="id" value="{{comment.id}}">
+            <div class="col-10">
+              <input type="text" class="form-control" name="reply" placeholder="Type reply">
+            </div>
+            <div class="col-2">
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-send"></i>
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
