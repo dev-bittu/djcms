@@ -89,7 +89,7 @@
       <input type="hidden" name="id" value="{{ blog.id }}">
       <div class="mb-3">
         <label for="comment" class="form-label">Comment:</label>
-        <textarea class="form-control" id="comment" rows="3" name="comment" placeholder="Type comment" required></textarea>
+        <textarea class="form-control" id="comment" rows="3" name="comment" placeholder="Add a comment" required></textarea>
       </div>
       {% if request.user.is_authenticated %}
       <button type="submit" class="float-end btn btn-primary">
@@ -125,7 +125,7 @@
           <div class="row"> 
             <input type="hidden" name="id" value="{{comment.id}}">
             <div class="col-10">
-              <input type="text" class="form-control" name="reply" placeholder="Type reply" required>
+              <input type="text" class="form-control" name="reply" placeholder="Add a reply" required>
             </div>
             <div class="col-2">
               <button type="submit" class="btn btn-primary">
