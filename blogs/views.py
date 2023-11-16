@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
 from django.db.models import F
+from django.urls import reverse
 from .models import *
 
 # Create your views here.
+def get_blog_url(slug):
+    return reverse("blogs:blog", args=[slug])
+
 class BlogView(View):
     def get(self, request, slug):
         queryset = Blog.objects.filter(is_active=True, slug=slug)
@@ -29,7 +33,7 @@ class CreateComment(View):
         comment = request.POST.get("comment")
         if not comment:
             messages.warning(request, "Comment required")
-            redirect("blogs:blog", slug=blog.slug)
+            return redirect("blogs:blog", slug=blog.slug)
         c = Comment(
             comment = comment,
             creator = request.user,
@@ -37,7 +41,7 @@ class CreateComment(View):
         )
         c.save()
         messages.success(request, "Comment created")
-        return redirect("blogs:blog", slug=blog.slug)
+        return redirect(get_blog_url(blog.slug)+"#comments")
 
 class CreateReply(View):
     def post(self, request):
@@ -55,7 +59,7 @@ class CreateReply(View):
         r.save()
 
         messages.success(request, "Reply created")
-        return redirect("blogs:blog", slug=comment.blog.slug)
+        return redirect(get_blog_url(comment.blog.slug)+"#comments")
 
 class CreateBookmark(View):
     def post(self, request):
@@ -82,4 +86,4 @@ class CreateLike(View):
             l = BlogLike(creator=request.user, blog=blog)
             l.save()
             messages.success(request, "Liked this blog")
-        return redirect("blogs:blog", slug=blog.slug)
+        return redirect(get_blog_url(blog.slug)+"#features")
