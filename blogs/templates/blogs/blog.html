@@ -70,9 +70,9 @@
       {% endif %}
     </div>
     <div class="col">
-      <a href="" class="text-decoration-none float-end">
+      <button class="text-primary float-end" style="background:none!important;border:none;padding:0!important;" data-bs-toggle="modal" data-bs-target="#shareModal">
         <i class="bi bi-box-arrow-up"></i>
-      </a>
+      </button>
     </div>
   </div>
   <br><br><hr>
@@ -139,5 +139,21 @@
   </div>
   <hr>
   {% endfor %}
+</div>
+
+<div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Share</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <button class="btn btn-primary">
+          <i class="bi bi-facebook"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
