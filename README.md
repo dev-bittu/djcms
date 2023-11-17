@@ -70,6 +70,7 @@ Log in with the superuser account you created earlier.
 - Change password
 - Profile
 - User logo
+- Notification system
 
 ## Contributing
 Contributions are welcome!
