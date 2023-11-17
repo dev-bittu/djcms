@@ -53,13 +53,14 @@ python manage.py runserver
 Log in with the superuser account you created earlier.
 
 ## Usage
-1. To create a new article, click on the "Add article" button on the admin dashboard.
-2. Fill in the required fields (title, content, tags) and optionally add a featured image.
+0. Login as author (create superuser; superuser is an author).
+1. To create a new blog, go to Manage > Blogs and then click on Create New button.
+2. Fill in the required fields (title, content, categories) and add a featured image.
 3. To embed a YouTube video, copy the video ID from the URL (e.g. https://www.youtube.com/watch?v=abcdefg) and paste it into the "YouTube video ID" field.
-4. Click on the "Save" button to publish the article.
-5. To view the article on the website, go to http://localhost:8000/articles in your browser.
-6. To search for articles, use the search bar on the top right corner of the website.
-7. To leave a comment on an article, scroll down to the bottom of the article page and fill in the comment form.
+4. Click on the "Publish" button to publish the blog.
+5. To view the blog on the website, go to http://localhost:8000/latest in your browser, then select blog what you want to read.
+6. To search for blogs, use the search bar on the top of the website (navbar).
+7. To leave a comment on an blog, scroll down to the bottom of the blog page and fill in the comment form.
 
 ## Contributing
 Contributions are welcome!
