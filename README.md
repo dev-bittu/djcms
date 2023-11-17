@@ -8,8 +8,10 @@ This project is perfect for bloggers, content creators, and website owners who w
 - YouTube video embedding
 - Responsive design
 - Search functionality
-- Commenting system
-- Tagging system
+- Like system
+- Commenting and replying system
+- Categorising (tagging) system
+- Bookmark system
 
 ## Installation
 1. Clone the repository:
@@ -61,6 +63,13 @@ Log in with the superuser account you created earlier.
 5. To view the blog on the website, go to http://localhost:8000/latest in your browser, then select blog what you want to read.
 6. To search for blogs, use the search bar on the top of the website (navbar).
 7. To leave a comment on an blog, scroll down to the bottom of the blog page and fill in the comment form.
+
+# ToDo
+- Add forget password
+- Share blogs
+- Change password
+- Profile
+- User logo
 
 ## Contributing
 Contributions are welcome!
