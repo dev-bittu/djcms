@@ -3,6 +3,7 @@
 {% block title %}Blog{% endblock %}
 
 {% block body %}
+{% load static %}
 <div class="container mt-5 mb-5">
   <div class="row">
     <h2>
@@ -164,8 +165,13 @@
         <button class="btn btn-primary">
           <i class="bi bi-telegram"></i>
         </button>
+        <button class="btn btn-outline-secondary rounded-pill" onclick="copyUrl()">
+          <i class="bi bi-copy"></i>
+        </button>
       </div>
     </div>
   </div>
 </div>
+
+<script src="{% static 'js/blogs/blog.js' %}"></script>
 {% endblock %}
