@@ -49,14 +49,16 @@ class Register(View):
             messages.warning(request, "Passwords do not match")
             return redirect("accounts:register")
         
-        email, username = data.get("email"), data.get("username")
-        if not (email and username):
-            messages.info(request, "Email and username required")
+        email, username, firstname = data.get("email"), data.get("username"), data.get("firstname")
+        if not (email and username and firstname):
+            messages.info(request, "Email, username, and first name required")
             return redirect("accounts:register")
         
         user = User.objects.filter(Q(email=email) | Q(username=username))
         if not user.exists():
-            user = User(email=email, username=username)
+            user = User(email=email, username=username, first_name=firstname)
+            if lastname := data.get("lastname"):
+                user.last_name = lastname
             user.set_password(passwd1)
             user.save()
             messages.success(request, "User created")
