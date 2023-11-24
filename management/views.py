@@ -177,12 +177,15 @@ class DeleteCategory(View):
 
 class ManageComment(View):
     def get(self, request):
-        comments = Comment.objects.filter(is_active=True)
+        comments = Comment.objects.filter(is_active=True, blog__in=Blog.objects.filter(creator=request.user))
         return render(request, "management/comment.html", {"comments": comments})
 
 class DeleteComment(View):
     def get(self, request, id):
         comment = get_object_or_404(Comment.objects.filter(id=id, is_active=True))
+        if comment.blog.creator.username != request.user.username:
+            messages.warning(request, "You are not author of that blog")
+            return redirect("manage:comment")
         comment.is_active = False
         comment.save()
         messages.success(request, "Comment deleted")
