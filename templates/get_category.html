@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block title %}Latest{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+  <div class="row mb-5">
+    <h2 class="text-center">{{ category.category }}</h2>
+    <p>{{ category.desc }}</p>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for blog in category.blogs.all %}
+      {% if blog.is_active %}
+        {% include "card.html" with blog=blog %}
+      {% endif %}
+    {% empty %}
+      <p class="text-center">No blog found !!!</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

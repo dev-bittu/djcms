@@ -19,11 +19,11 @@
   </div>
   <div class="row mb-3">
     {% for category in blog.categories.all %}
-    {% if category.is_active %}
-    <div class="col">
-      <span class="badge text-bg-primary" style="display:inline;">{{ category.category }}</span>
-    </div>
-    {% endif %}
+      {% if category.is_active %}
+      <div class="col">
+        <a type="button" href="{% url 'get_category' category.slug %}" class="btn btn-primary btn-sm ms-auto">{{ category.category }}</a>
+      </div>
+      {% endif %}
     {% endfor %}
   </div>
   <div class="row">

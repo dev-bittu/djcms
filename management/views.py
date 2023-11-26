@@ -124,6 +124,7 @@ class EditBlog(View):
         except:
             messages.info(request, "Error while updating status")
         
+        blog.categories.set([])
         for id in categories:
             try:
                 c = Category.objects.get(id=int(id))

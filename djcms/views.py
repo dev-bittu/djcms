@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.db.models import Q
 from django.views.generic import ListView
-from blogs.models import Blog, Bookmark
+from blogs.models import Blog, Bookmark, Category
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 
@@ -113,14 +113,14 @@ class Search(ListView):
         context["query"] = self.request.GET.get("query")
         return context
 
-class Category(View):
+class CategoryView(View):
     def get(self, request):
         categories = Category.objects.all()
         return render(request, "category.html", {"categories": categories})
 
 class GetCategory(View):
     def get(self, request, cat):
-        category = get_object_or_404(Category, title=cat)
+        category = get_object_or_404(Category.objects.filter(slug=cat, is_active=True))
         return render(request, "get_category.html", {"category": category})
 
 class TermsAndConditions(View):
