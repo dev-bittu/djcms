@@ -6,7 +6,7 @@ from ckeditor.fields import RichTextField
 # Create your models here.
 class Category(models.Model):
     category = models.CharField(max_length=30, unique=True)
-    slug = models.SlugField()
+    slug = models.SlugField(default="")
     desc = models.TextField()
     is_active = models.BooleanField(default=True)
 
