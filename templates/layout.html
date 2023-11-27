@@ -136,6 +136,7 @@
 <!-- Footer -->
 <section>
   <footer class="text-center text-white">
+    {% if request.user.is_anonymous %}
     <div class="container p-4 pb-0">
       <section class="">
         <p class="d-flex justify-content-center align-items-center">
@@ -144,6 +145,7 @@
         </p>
       </section>
     </div>
+    {% endif %}
     <div class="text-center p-3 copyright-text">
       © 2023 Copyright:
       <a class="text-white" href="/">djcms</a>
