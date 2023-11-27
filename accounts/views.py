@@ -22,7 +22,7 @@ class Login(View):
         if user is not None:
             login(request, user)
             messages.success(request, "Logged in")
-            return redirect("index")
+            return redirect(request.POST.get("next", "index"))
         else:
             messages.warning(request, "Username or password is incorrect")
         return render(request, "accounts/login.html")
