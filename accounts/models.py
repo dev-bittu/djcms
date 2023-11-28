@@ -5,6 +5,7 @@ from .managers import UserManager
 
 class User(AbstractUser):
     is_author = models.BooleanField(default=False)
+    avatar = models.ImageField(upload_to="avatars/", default="avatars/default.jpeg")
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = []
